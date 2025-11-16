@@ -31,16 +31,16 @@ The foundation of any N8N e-commerce workflow is proper webhook setup:
 
 ```javascript
 // Custom webhook handler for WooCommerce orders
-module.exports = async function() {
+module.exports = async function () {
   const orderData = this.getInputData().json;
-  
+
   // Validate order structure
   if (!orderData.id || !orderData.currency) {
-    throw new Error('Invalid order data');
+    throw new Error("Invalid order data");
   }
-  
+
   return orderData;
-}
+};
 ```
 
 ### Currency Conversion Strategy
@@ -48,6 +48,7 @@ module.exports = async function() {
 One of the biggest challenges was handling **dynamic currency conversion**. Different payment gateways send amounts in different currencies, and we needed a unified processing system.
 
 **Key learnings:**
+
 - Always validate currency codes at webhook entry
 - Implement batch processing for currency API calls
 - Cache exchange rates to reduce API costs
@@ -72,13 +73,13 @@ const klaviyoEvent = {
   customer_properties: {
     $email: order.billing.email,
     $first_name: order.billing.first_name,
-    $last_name: order.billing.last_name
+    $last_name: order.billing.last_name,
   },
   properties: {
     order_id: order.id,
     total: order.total,
-    currency: order.currency
-  }
+    currency: order.currency,
+  },
 };
 ```
 
@@ -105,7 +106,7 @@ Processing individual records is slow. **Batch operations** saved us hours:
 
 ```javascript
 // Never hardcode credentials
-const apiKey = this.getCredentials('woocommerce').apiKey;
+const apiKey = this.getCredentials("woocommerce").apiKey;
 ```
 
 Use N8N's credential system or external secret managers like **AWS Secrets Manager**.
@@ -139,9 +140,9 @@ try {
 } catch (error) {
   // Log to external monitoring
   await logError({
-    workflow: 'order_processing',
+    workflow: "order_processing",
     error: error.message,
-    orderData: orderData
+    orderData: orderData,
   });
   throw error;
 }
@@ -175,4 +176,4 @@ E-commerce automation with N8N isn't just about connecting APIs—it's about bui
 
 ---
 
-*Have you built e-commerce automations with N8N? What challenges did you face? Let's discuss in the comments!*
+_Have you built e-commerce automations with N8N? What challenges did you face? Let's discuss in the comments!_

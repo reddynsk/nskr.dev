@@ -49,15 +49,7 @@ export function ProfileHeader() {
                 const y1 = 10 + 1 * Math.sin(angle);
                 const x2 = 15 + 3 * Math.cos(angle);
                 const y2 = 10 + 3 * Math.sin(angle);
-                return (
-                  <line
-                    key={i}
-                    x1={x1}
-                    y1={y1}
-                    x2={x2}
-                    y2={y2}
-                  />
-                );
+                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />;
               })}
             </g>
           </svg>

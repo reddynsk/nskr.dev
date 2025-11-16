@@ -53,6 +53,8 @@
     collapsible-up var(--tw-duration, 200ms) ease-out,
     fade-out var(--tw-duration, 200ms) ease-out;
 
+  --animate-marquee: marquee var(--duration) linear infinite;
+
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -68,6 +70,15 @@
     }
     to {
       opacity: 0;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
     }
   }
 }

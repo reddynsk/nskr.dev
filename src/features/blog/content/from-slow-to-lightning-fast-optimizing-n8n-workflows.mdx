@@ -107,13 +107,12 @@ for (let i = 0; i < orders.length; i += batchSize) {
 }
 
 // Process batches in parallel
-await Promise.all(
-  batches.map(batch => updateCustomersBatch(batch))
-);
+await Promise.all(batches.map((batch) => updateCustomersBatch(batch)));
 // Total: 2 batches × 1s = 2 seconds (25× faster!)
 ```
 
 **Real Impact at SkinSeoul:**
+
 - Customer sync: 50s → 2s
 - Order updates: 30s → 1.5s
 - Klaviyo events: 40s → 3s
@@ -152,6 +151,7 @@ async function getCachedData(this: IExecuteFunctions, key: string) {
 ```
 
 **Results:**
+
 - Reduced API calls by 80%
 - Saved costs on rate-limited APIs
 - Improved response time from 2s to 0.1s
@@ -233,6 +233,7 @@ Async workflow processes order →
 ```
 
 **Benefits:**
+
 - Webhook responds in < 200ms
 - No timeout errors
 - Better error recovery
@@ -277,13 +278,13 @@ async function executeWithRetry(
 
 After implementing these optimizations:
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| Order processing time | 15s | 2s | **87% faster** |
-| Daily workflow executions | ~300 | ~1200 | **4× capacity** |
-| API costs | $150/mo | $45/mo | **70% savings** |
-| Error rate | 5% | 0.3% | **94% reduction** |
-| Manual interventions | 20/day | 2/week | **98% reduction** |
+| Metric                    | Before  | After  | Improvement       |
+| ------------------------- | ------- | ------ | ----------------- |
+| Order processing time     | 15s     | 2s     | **87% faster**    |
+| Daily workflow executions | ~300    | ~1200  | **4× capacity**   |
+| API costs                 | $150/mo | $45/mo | **70% savings**   |
+| Error rate                | 5%      | 0.3%   | **94% reduction** |
+| Manual interventions      | 20/day  | 2/week | **98% reduction** |
 
 ## Monitoring and Maintenance
 
@@ -296,7 +297,7 @@ const metrics = {
   execution_time: executionTime,
   items_processed: items.length,
   errors: errorCount,
-  timestamp: new Date().toISOString()
+  timestamp: new Date().toISOString(),
 };
 
 // Send to monitoring service
@@ -322,13 +323,13 @@ Too many parallel branches can overwhelm APIs and cause rate limiting:
 
 ```javascript
 // Bad: 100 parallel API calls
-await Promise.all(items.map(item => apiCall(item)));
+await Promise.all(items.map((item) => apiCall(item)));
 
 // Good: Controlled concurrency
 const limit = 10;
 for (let i = 0; i < items.length; i += limit) {
   const batch = items.slice(i, i + limit);
-  await Promise.all(batch.map(item => apiCall(item)));
+  await Promise.all(batch.map((item) => apiCall(item)));
 }
 ```
 
@@ -338,7 +339,7 @@ Large datasets can crash N8N if not handled properly:
 
 ```javascript
 // Process large files in streams, not all at once
-const stream = fs.createReadStream('large-file.csv');
+const stream = fs.createReadStream("large-file.csv");
 // Process line by line
 ```
 
@@ -388,4 +389,4 @@ Optimization isn't a one-time task—it's an ongoing process. As your workflows 
 
 ---
 
-*What's your biggest N8N performance challenge? Share your optimization wins and struggles below!*
+_What's your biggest N8N performance challenge? Share your optimization wins and struggles below!_

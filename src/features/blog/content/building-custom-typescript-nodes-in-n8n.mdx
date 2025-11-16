@@ -28,17 +28,20 @@ If the answer to any of these is "yes," custom nodes might be your solution.
 ### Prerequisites
 
 Clone your N8N instance:
+
 ```bash
 git clone https://github.com/n8n-io/n8n.git
 cd n8n
 ```
 
 Install dependencies:
+
 ```bash
 npm install
 ```
 
 Start in development mode:
+
 ```bash
 npm run dev
 ```
@@ -69,37 +72,37 @@ import {
   INodeExecutionData,
   INodeType,
   INodeTypeDescription,
-} from 'n8n-workflow';
+} from "n8n-workflow";
 
 export class OrderValidator implements INodeType {
   description: INodeTypeDescription = {
-    displayName: 'Order Validator',
-    name: 'orderValidator',
-    group: ['transform'],
+    displayName: "Order Validator",
+    name: "orderValidator",
+    group: ["transform"],
     version: 1,
-    description: 'Validates order data against multiple criteria',
+    description: "Validates order data against multiple criteria",
     defaults: {
-      name: 'Order Validator',
+      name: "Order Validator",
     },
-    inputs: ['main'],
-    outputs: ['main', 'invalid'],
+    inputs: ["main"],
+    outputs: ["main", "invalid"],
     properties: [
       {
-        displayName: 'Validation Rules',
-        name: 'rules',
-        type: 'collection',
+        displayName: "Validation Rules",
+        name: "rules",
+        type: "collection",
         default: {},
         options: [
           {
-            displayName: 'Check Currency',
-            name: 'checkCurrency',
-            type: 'boolean',
+            displayName: "Check Currency",
+            name: "checkCurrency",
+            type: "boolean",
             default: true,
           },
           {
-            displayName: 'Minimum Amount',
-            name: 'minAmount',
-            type: 'number',
+            displayName: "Minimum Amount",
+            name: "minAmount",
+            type: "number",
             default: 0,
           },
         ],
@@ -112,7 +115,7 @@ export class OrderValidator implements INodeType {
     const validOrders: INodeExecutionData[] = [];
     const invalidOrders: INodeExecutionData[] = [];
 
-    const rules = this.getNodeParameter('rules', 0) as {
+    const rules = this.getNodeParameter("rules", 0) as {
       checkCurrency: boolean;
       minAmount: number;
     };
@@ -123,7 +126,7 @@ export class OrderValidator implements INodeType {
       try {
         // Currency validation
         if (rules.checkCurrency) {
-          const validCurrencies = ['SGD', 'AED', 'JPY', 'USD'];
+          const validCurrencies = ["SGD", "AED", "JPY", "USD"];
           if (!validCurrencies.includes(order.currency as string)) {
             throw new Error(`Invalid currency: ${order.currency}`);
           }
@@ -244,14 +247,14 @@ async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 ### Unit Testing
 
 ```typescript
-import { NodeOperationError } from 'n8n-workflow';
-import { OrderValidator } from '../OrderValidator.node';
+import { NodeOperationError } from "n8n-workflow";
+import { OrderValidator } from "../OrderValidator.node";
 
-describe('OrderValidator', () => {
-  it('should validate correct orders', async () => {
+describe("OrderValidator", () => {
+  it("should validate correct orders", async () => {
     const node = new OrderValidator();
     const mockContext = createMockExecuteContext([
-      { json: { id: 1, currency: 'SGD', total: 100 } },
+      { json: { id: 1, currency: "SGD", total: 100 } },
     ]);
 
     const result = await node.execute.call(mockContext);
@@ -260,10 +263,10 @@ describe('OrderValidator', () => {
     expect(result[1]).toHaveLength(0);
   });
 
-  it('should catch invalid currency', async () => {
+  it("should catch invalid currency", async () => {
     const node = new OrderValidator();
     const mockContext = createMockExecuteContext([
-      { json: { id: 2, currency: 'INVALID', total: 100 } },
+      { json: { id: 2, currency: "INVALID", total: 100 } },
     ]);
 
     const result = await node.execute.call(mockContext);
@@ -279,7 +282,7 @@ describe('OrderValidator', () => {
 ### 1. Use Console Logging Strategically
 
 ```typescript
-console.log('Processing item:', JSON.stringify(item, null, 2));
+console.log("Processing item:", JSON.stringify(item, null, 2));
 ```
 
 ### 2. Test with Postman First
@@ -306,6 +309,7 @@ throw new NodeOperationError(
 4. **Use streaming** - For file operations and large payloads
 
 ### Before Optimization
+
 ```typescript
 for (const item of items) {
   const result = await processItem(item); // Slow!
@@ -314,9 +318,10 @@ for (const item of items) {
 ```
 
 ### After Optimization
+
 ```typescript
 const results = await Promise.all(
-  items.map(item => processItem(item)) // Fast!
+  items.map((item) => processItem(item)) // Fast!
 );
 ```
 
@@ -366,4 +371,4 @@ Custom TypeScript nodes transformed how we build automation at SkinSeoul, enabli
 
 ---
 
-*Have you built custom N8N nodes? What challenges did you face? Share your experiences below!*
+_Have you built custom N8N nodes? What challenges did you face? Share your experiences below!_

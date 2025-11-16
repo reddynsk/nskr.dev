@@ -44,6 +44,18 @@ export const TECH_STACK: TechStack[] = [
     href: "https://www.r-project.org/",
     categories: ["Language"],
   },
+  {
+    key: "go",
+    title: "Go",
+    href: "https://go.dev/",
+    categories: ["Language"],
+  },
+  {
+    key: "lua",
+    title: "Lua",
+    href: "https://www.lua.org/",
+    categories: ["Language"],
+  },
 
   // AI & Machine Learning
   {
@@ -71,18 +83,6 @@ export const TECH_STACK: TechStack[] = [
     categories: ["AI", "Library"],
   },
   {
-    key: "mediapipe",
-    title: "MediaPipe",
-    href: "https://mediapipe.dev/",
-    categories: ["AI", "Library"],
-  },
-  {
-    key: "spacy",
-    title: "spaCy",
-    href: "https://spacy.io/",
-    categories: ["AI", "Library"],
-  },
-  {
     key: "pandas",
     title: "Pandas",
     href: "https://pandas.pydata.org/",
@@ -93,6 +93,96 @@ export const TECH_STACK: TechStack[] = [
     title: "NumPy",
     href: "https://numpy.org/",
     categories: ["Library"],
+  },
+  {
+    key: "pytorch",
+    title: "PyTorch",
+    href: "https://pytorch.org/",
+    categories: ["AI", "Library"],
+  },
+  {
+    key: "langchain-color",
+    title: "LangChain",
+    href: "https://www.langchain.com/",
+    categories: ["AI", "Library"],
+  },
+  {
+    key: "langgraph-color",
+    title: "LangGraph",
+    href: "https://www.langchain.com/langgraph",
+    categories: ["AI", "Library"],
+  },
+  {
+    key: "langsmith-color",
+    title: "LangSmith",
+    href: "https://www.langchain.com/langsmith",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "bedrock-color",
+    title: "AWS Bedrock",
+    href: "https://aws.amazon.com/bedrock/",
+    categories: ["AI", "Cloud"],
+  },
+  {
+    key: "ollama",
+    title: "Ollama",
+    href: "https://ollama.ai/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "perplexity",
+    title: "Perplexity",
+    href: "https://www.perplexity.ai/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "notebooklm",
+    title: "NotebookLM",
+    href: "https://notebooklm.google/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "aistudio",
+    title: "AI Studio",
+    href: "https://ai.google.dev/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "mcp",
+    title: "MCP",
+    href: "https://modelcontextprotocol.io/",
+    categories: ["AI", "Other"],
+  },
+  {
+    key: "nvidia-color",
+    title: "NVIDIA",
+    href: "https://www.nvidia.com/",
+    categories: ["AI", "Other"],
+  },
+  {
+    key: "sora-color",
+    title: "Sora",
+    href: "https://openai.com/sora",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "anaconda",
+    title: "Anaconda",
+    href: "https://www.anaconda.com/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "kaggle",
+    title: "Kaggle",
+    href: "https://www.kaggle.com/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "matlab",
+    title: "MATLAB",
+    href: "https://www.mathworks.com/products/matlab.html",
+    categories: ["AI", "Tools"],
   },
 
   // Backend & API Frameworks
@@ -107,6 +197,30 @@ export const TECH_STACK: TechStack[] = [
     title: "Node.js",
     href: "https://nodejs.org/",
     categories: ["Runtime Environment"],
+  },
+  {
+    key: "fastapi",
+    title: "FastAPI",
+    href: "https://fastapi.tiangolo.com/",
+    categories: ["Framework"],
+  },
+  {
+    key: "express",
+    title: "Express.js",
+    href: "https://expressjs.com/",
+    categories: ["Framework"],
+  },
+  {
+    key: "graphql",
+    title: "GraphQL",
+    href: "https://graphql.org/",
+    categories: ["Framework", "Other"],
+  },
+  {
+    key: "ruby-on-rails",
+    title: "Ruby on Rails",
+    href: "https://rubyonrails.org/",
+    categories: ["Framework"],
   },
 
   // Frontend Technologies (Supporting)
@@ -134,6 +248,60 @@ export const TECH_STACK: TechStack[] = [
     title: "CSS3",
     href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
     categories: ["Language"],
+  },
+  {
+    key: "tailwind",
+    title: "Tailwind CSS",
+    href: "https://tailwindcss.com/",
+    categories: ["UI Library"],
+  },
+  {
+    key: "reactnative",
+    title: "React Native",
+    href: "https://reactnative.dev/",
+    categories: ["Framework", "UI Library"],
+  },
+  {
+    key: "reactquery",
+    title: "React Query",
+    href: "https://tanstack.com/query/latest",
+    categories: ["Library"],
+  },
+  {
+    key: "redux",
+    title: "Redux",
+    href: "https://redux.js.org/",
+    categories: ["Library"],
+  },
+  {
+    key: "mui",
+    title: "Material UI",
+    href: "https://mui.com/",
+    categories: ["UI Library"],
+  },
+  {
+    key: "figma",
+    title: "Figma",
+    href: "https://www.figma.com/",
+    categories: ["Tools"],
+  },
+  {
+    key: "framer",
+    title: "Framer",
+    href: "https://www.framer.com/",
+    categories: ["Tools"],
+  },
+  {
+    key: "v0",
+    title: "v0",
+    href: "https://v0.dev/",
+    categories: ["AI", "Tools"],
+  },
+  {
+    key: "tauri",
+    title: "Tauri",
+    href: "https://tauri.app/",
+    categories: ["Framework"],
   },
 
   // DevOps & Containerization
@@ -177,6 +345,62 @@ export const TECH_STACK: TechStack[] = [
     href: "https://aws.amazon.com/",
     categories: ["Cloud"],
   },
+  {
+    key: "google-cloud",
+    title: "Google Cloud",
+    href: "https://cloud.google.com/",
+    categories: ["Cloud"],
+  },
+  {
+    key: "firebase",
+    title: "Firebase",
+    href: "https://firebase.google.com/",
+    categories: ["Cloud"],
+  },
+  {
+    key: "lambda",
+    title: "AWS Lambda",
+    href: "https://aws.amazon.com/lambda/",
+    categories: ["Cloud"],
+  },
+
+  // Databases
+  {
+    key: "postgresql",
+    title: "PostgreSQL",
+    href: "https://www.postgresql.org/",
+    categories: ["Database"],
+  },
+  {
+    key: "mysql",
+    title: "MySQL",
+    href: "https://www.mysql.com/",
+    categories: ["Database"],
+  },
+  {
+    key: "mongodb",
+    title: "MongoDB",
+    href: "https://www.mongodb.com/",
+    categories: ["Database"],
+  },
+  {
+    key: "redis",
+    title: "Redis",
+    href: "https://redis.io/",
+    categories: ["Database"],
+  },
+  {
+    key: "oracle",
+    title: "Oracle",
+    href: "https://www.oracle.com/database/",
+    categories: ["Database"],
+  },
+  {
+    key: "prisma",
+    title: "Prisma",
+    href: "https://www.prisma.io/",
+    categories: ["Database", "Library"],
+  },
 
   // Automation & Integration
   {
@@ -189,12 +413,6 @@ export const TECH_STACK: TechStack[] = [
     key: "woocommerce",
     title: "WooCommerce",
     href: "https://woocommerce.com/",
-    categories: ["Tools"],
-  },
-  {
-    key: "klaviyo",
-    title: "Klaviyo",
-    href: "https://www.klaviyo.com/",
     categories: ["Tools"],
   },
 
@@ -232,6 +450,30 @@ export const TECH_STACK: TechStack[] = [
     href: "https://jupyter.org/",
     categories: ["Tools"],
   },
+  {
+    key: "githubcopilot",
+    title: "GitHub Copilot",
+    href: "https://github.com/features/copilot",
+    categories: ["Tools", "AI"],
+  },
+  {
+    key: "notion",
+    title: "Notion",
+    href: "https://www.notion.so/",
+    categories: ["Tools"],
+  },
+  {
+    key: "swagger",
+    title: "Swagger",
+    href: "https://swagger.io/",
+    categories: ["Tools"],
+  },
+  {
+    key: "stripe",
+    title: "Stripe",
+    href: "https://stripe.com/",
+    categories: ["Tools"],
+  },
 
   // APIs & Integration
   {
@@ -255,19 +497,4 @@ export const TECH_STACK: TechStack[] = [
     href: "https://developer.nvidia.com/cuda-toolkit",
     categories: ["AI", "Other"],
   },
-  {
-    key: "github-pages",
-    title: "GitHub Pages",
-    href: "https://pages.github.com/",
-    categories: ["Cloud"],
-    theme: true,
-  },
-  // {
-  //   key: "linux-arch",
-  //   title: "Linux (Arch)",
-  //   displayName: "Linux",
-  //   href: "https://archlinux.org/",
-  //   categories: ["Tools"],
-  //   theme: true,
-  // },
 ];

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 import React from "react";
 
-import { getIcon,Icons } from "@/components/icons";
+import { getIcon, Icons } from "@/components/icons";
 import { Markdown } from "@/components/markdown";
 import {
   CollapsibleChevronsIcon,
