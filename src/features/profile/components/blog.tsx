@@ -9,7 +9,7 @@ import { getAllPosts } from "@/features/blog/actions";
 import { PostItem } from "@/features/blog/components/post-item";
 import type { Post } from "@/features/blog/types/post";
 
-import { Panel, PanelHeader, PanelTitle } from "./panel";
+import { Panel, PanelContent, PanelHeader, PanelTitle } from "./panel";
 
 export function Blog() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -18,33 +18,40 @@ export function Blog() {
     getAllPosts().then(setAllPosts);
   }, []);
 
+  const recentPosts = allPosts.slice(0, 2);
+
   return (
     <Panel id="blog">
       <PanelHeader>
-        <PanelTitle>Blog</PanelTitle>
+        <div className="flex w-full items-center justify-between">
+          <PanelTitle>Recent Posts</PanelTitle>
+          <Button variant="ghost" size="sm" asChild>
+            <Link
+              href="/blog"
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              View all
+              <ArrowRightIcon className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </PanelHeader>
 
-      <div className="relative py-4">
-        <div className="pointer-events-none absolute inset-0 -z-1 grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-2">
-          <div className="border-r border-edge"></div>
-          <div className="border-l border-edge"></div>
-        </div>
+      <PanelContent className="space-y-6">
+        {recentPosts.map((post, index) => (
+          <PostItem
+            key={post.slug}
+            post={post}
+            shouldPreloadImage={index === 0}
+          />
+        ))}
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {allPosts.slice(0, 4).map((post) => (
-            <PostItem key={post.slug} post={post} />
-          ))}
-        </div>
-      </div>
-
-      <div className="screen-line-before flex justify-center py-2">
-        <Button variant="default" asChild>
-          <Link href="/blog">
-            All Posts
-            <ArrowRightIcon />
-          </Link>
-        </Button>
-      </div>
+        {recentPosts.length === 0 && (
+          <p className="py-8 text-center text-muted-foreground">
+            No posts yet. Check back soon!
+          </p>
+        )}
+      </PanelContent>
     </Panel>
   );
 }

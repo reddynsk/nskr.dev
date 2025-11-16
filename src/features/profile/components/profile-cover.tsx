@@ -7,13 +7,17 @@ export function ProfileCover() {
     <BrandContextMenu>
       <div
         className={cn(
-          "aspect-2/1 border-x border-edge select-none sm:aspect-3/1",
-          "flex items-center justify-center text-black dark:text-white",
-          "screen-line-before screen-line-after before:-top-px after:-bottom-px",
-          "bg-black/0.75 bg-[radial-gradient(var(--pattern-foreground)_1px,transparent_0)] bg-size-[10px_10px] bg-center [--pattern-foreground:var(--color-zinc-950)]/5 dark:bg-white/0.75 dark:[--pattern-foreground:var(--color-white)]/5"
+          "relative aspect-2/1 select-none sm:aspect-3/1 lg:aspect-4/1",
+          "flex items-center justify-center overflow-hidden",
+          "bg-gradient-to-br from-primary/5 via-background to-muted/20",
+          "screen-line-after after:-bottom-px"
         )}
       >
-        <RedMark id="js-cover-mark" className="h-28 w-80 sm:h-32 sm:w-96" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+        <RedMark
+          id="js-cover-mark"
+          className="relative z-10 h-28 w-80 text-foreground sm:h-36 sm:w-96 lg:h-40 lg:w-[28rem]"
+        />
       </div>
     </BrandContextMenu>
   );

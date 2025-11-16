@@ -32,30 +32,36 @@ export function ProjectItem({
 
   return (
     <CollapsibleWithContext defaultOpen={project.isExpanded} asChild>
-      <div className={className}>
-        <div className="flex items-center hover:bg-accent2">
+      <div
+        className={`overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/20 hover:shadow-lg ${className}`}
+      >
+        <div className="flex items-center">
           {project.logo ? (
-            <Image
-              src={project.logo}
-              alt={project.title}
-              width={32}
-              height={32}
-              quality={100}
-              className="mx-4 flex size-6 shrink-0 select-none"
-              unoptimized
-              aria-hidden="true"
-            />
+            <div className="flex shrink-0 items-center justify-center p-4">
+              <Image
+                src={project.logo}
+                alt={project.title}
+                width={40}
+                height={40}
+                quality={100}
+                className="size-10 select-none"
+                unoptimized
+                aria-hidden="true"
+              />
+            </div>
           ) : (
             <div
-              className="mx-4 flex size-6 shrink-0 items-center justify-center rounded-lg border border-muted-foreground/15 bg-muted text-muted-foreground ring-1 ring-edge ring-offset-1 ring-offset-background select-none"
+              className="flex shrink-0 items-center justify-center p-4"
               aria-hidden="true"
             >
-              <Icons.project className="size-4" />
+              <div className="flex size-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                <Icons.project className="size-6" />
+              </div>
             </div>
           )}
 
-          <div className="flex-1 border-l border-dashed border-edge">
-            <CollapsibleTrigger className="flex w-full items-center gap-4 p-4 pr-2 text-left select-none">
+          <div className="flex-1 border-l border-border">
+            <CollapsibleTrigger className="flex w-full items-center gap-4 p-4 pr-2 text-left transition-colors select-none hover:bg-muted/50">
               <div className="flex-1">
                 <h3 className="mb-1 leading-snug font-medium text-balance">
                   {project.title}
@@ -104,8 +110,8 @@ export function ProjectItem({
         </div>
 
         <CollapsibleContent className="group overflow-hidden duration-300 data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-          <div className="border-t border-dashed border-edge">
-            <div className="space-y-4 p-4 duration-300 group-data-[state=closed]:animate-fade-out group-data-[state=open]:animate-fade-in">
+          <div className="border-t border-border bg-muted/30">
+            <div className="space-y-4 p-6 duration-300 group-data-[state=closed]:animate-fade-out group-data-[state=open]:animate-fade-in">
               {project.description && (
                 <Prose>
                   <Suspense fallback={<div>Loading...</div>}>

@@ -19,10 +19,7 @@ function Panel({
       <Collapsible asChild defaultOpen>
         <section
           data-slot="panel"
-          className={cn(
-            "screen-line-before screen-line-after border-x border-edge",
-            className
-          )}
+          className={cn("screen-line-before screen-line-after", className)}
           {...props}
         />
       </Collapsible>
@@ -32,10 +29,7 @@ function Panel({
   return (
     <section
       data-slot="panel"
-      className={cn(
-        "screen-line-before screen-line-after border-x border-edge",
-        className
-      )}
+      className={cn("screen-line-before screen-line-after", className)}
       {...props}
     />
   );
@@ -51,7 +45,7 @@ function PanelHeader({
     <div
       data-slot="panel-header"
       className={cn(
-        "screen-line-after flex items-center justify-between px-4 py-4",
+        "screen-line-after flex items-center justify-between px-6 py-6",
         className
       )}
       {...props}
@@ -72,7 +66,7 @@ function PanelTitle({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     <h2
       data-slot="panel-title"
-      className={cn("text-3xl font-semibold", className)}
+      className={cn("text-4xl font-bold md:text-5xl", className)}
       {...props}
     />
   );
@@ -88,7 +82,7 @@ function PanelContent({
       <CollapsibleContent>
         <div
           data-slot="panel-body"
-          className={cn("p-4", className)}
+          className={cn("px-6 py-8", className)}
           {...props}
         />
       </CollapsibleContent>
@@ -96,7 +90,11 @@ function PanelContent({
   }
 
   return (
-    <div data-slot="panel-body" className={cn("p-4", className)} {...props} />
+    <div
+      data-slot="panel-body"
+      className={cn("px-6 py-8", className)}
+      {...props}
+    />
   );
 }
 

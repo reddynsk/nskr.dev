@@ -12,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 import { Tag } from "@/components/ui/tag";
 import { SimpleTooltip } from "@/components/ui/tooltip";
 import { Prose } from "@/components/ui/typography";
-import { cn } from "@/lib/utils";
 
 import { TECH_STACK } from "../../data/tech-stack";
 import type { ExperiencePosition } from "../../types/experiences";
@@ -28,28 +27,19 @@ export function ExperiencePositionItem({
 
   return (
     <CollapsibleWithContext defaultOpen={position.isExpanded} asChild>
-      <div className="relative last:before:absolute last:before:h-full last:before:w-4 last:before:bg-background">
-        <CollapsibleTrigger
-          className={cn(
-            "block w-full text-left select-none",
-            "relative before:absolute before:-top-1 before:-right-1 before:-bottom-1.5 before:left-7 before:-z-1 before:rounded-lg hover:before:bg-accent2"
-          )}
-        >
-          <div className="relative z-1 mb-1 flex items-center gap-3">
+      <div className="overflow-hidden rounded-lg border border-border/50 bg-muted/20 transition-colors hover:border-border">
+        <CollapsibleTrigger className="block w-full text-left transition-colors select-none hover:bg-muted/50">
+          <div className="flex items-center gap-4 p-4">
             <div
-              className={cn(
-                "flex size-6 shrink-0 items-center justify-center rounded-lg",
-                "bg-muted text-muted-foreground",
-                "border border-muted-foreground/15 ring-1 ring-edge ring-offset-1 ring-offset-background"
-              )}
+              className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground"
               aria-hidden
             >
-              <ExperienceIcon className="size-4" icon={position.icon} />
+              <ExperienceIcon className="size-5" icon={position.icon} />
             </div>
 
-            <h4 className="flex-1 font-medium text-balance">
-              {position.title}
-            </h4>
+            <div className="flex-1">
+              <h4 className="font-semibold text-balance">{position.title}</h4>
+            </div>
 
             <div
               className="shrink-0 text-muted-foreground [&_svg]:size-4"
@@ -59,7 +49,7 @@ export function ExperiencePositionItem({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 pl-9 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 px-4 pb-3 text-sm text-muted-foreground">
             {position.employmentType && (
               <>
                 <dl>
@@ -96,58 +86,62 @@ export function ExperiencePositionItem({
         </CollapsibleTrigger>
 
         <CollapsibleContent className="overflow-hidden duration-300 data-[state=closed]:animate-collapsible-fade-up data-[state=open]:animate-collapsible-fade-down">
-          {position.description && (
-            <Prose className="pt-2 pl-9">
-              <ul>
-                {position.description
-                  .split("\n")
-                  .filter((line) => line.trim().startsWith("-"))
-                  .map((line, index) => (
-                    <li key={index}>{line.trim().substring(1).trim()}</li>
-                  ))}
-              </ul>
-            </Prose>
-          )}
+          <div className="space-y-4 border-t border-border/50 bg-background/50 p-4">
+            {position.description && (
+              <Prose>
+                <ul>
+                  {position.description
+                    .split("\n")
+                    .filter((line) => line.trim().startsWith("-"))
+                    .map((line, index) => (
+                      <li key={index}>{line.trim().substring(1).trim()}</li>
+                    ))}
+                </ul>
+              </Prose>
+            )}
 
-          {Array.isArray(position.skills) && position.skills.length > 0 && (
-            <ul className="flex flex-wrap gap-1.5 pt-2 pl-9">
-              {position.skills.map((skill, index) => {
-                // Find matching tech stack item
-                const techItem = TECH_STACK.find(
-                  (item) =>
-                    item.title === skill ||
-                    item.displayName === skill ||
-                    item.key === skill.toLowerCase()
-                );
-                const iconKey = techItem?.key || skill.toLowerCase();
-                const displayName =
-                  techItem?.displayName || techItem?.title || skill;
-                const icon = getIcon(iconKey);
+            {Array.isArray(position.skills) && position.skills.length > 0 && (
+              <ul className="flex flex-wrap gap-1.5">
+                {position.skills.map((skill, index) => {
+                  // Find matching tech stack item
+                  const techItem = TECH_STACK.find(
+                    (item) =>
+                      item.title === skill ||
+                      item.displayName === skill ||
+                      item.key === skill.toLowerCase()
+                  );
+                  const iconKey = techItem?.key || skill.toLowerCase();
+                  const displayName =
+                    techItem?.displayName || techItem?.title || skill;
+                  const icon = getIcon(iconKey);
 
-                return (
-                  <li key={index} className="flex">
-                    <Tag className="flex items-center gap-1">
-                      {icon && techItem?.href ? (
-                        <SimpleTooltip content={`Visit ${displayName} website`}>
-                          <a
-                            href={techItem.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block"
+                  return (
+                    <li key={index} className="flex">
+                      <Tag className="flex items-center gap-1">
+                        {icon && techItem?.href ? (
+                          <SimpleTooltip
+                            content={`Visit ${displayName} website`}
                           >
-                            {icon}
-                          </a>
-                        </SimpleTooltip>
-                      ) : (
-                        icon
-                      )}
-                      {displayName}
-                    </Tag>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+                            <a
+                              href={techItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block"
+                            >
+                              {icon}
+                            </a>
+                          </SimpleTooltip>
+                        ) : (
+                          icon
+                        )}
+                        {displayName}
+                      </Tag>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         </CollapsibleContent>
       </div>
     </CollapsibleWithContext>

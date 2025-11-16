@@ -1,6 +1,5 @@
 import { SimpleTooltip } from "@/components/ui/tooltip";
 import { USER } from "@/features/profile/data/user";
-import { cn } from "@/lib/utils";
 import { FlipSentences } from "@/registry/flip-sentences";
 
 import { PronounceMyName } from "./pronounce-my-name";
@@ -8,12 +7,12 @@ import { VerifiedIcon } from "./verified-icon";
 
 export function ProfileHeader() {
   return (
-    <div className="screen-line-after flex flex-col border-x border-edge sm:flex-row">
-      <div className="shrink-0 border-r-0 border-edge sm:border-r">
-        <div className="mx-[2px] my-[3px] flex justify-center">
+    <div className="screen-line-after flex flex-col sm:flex-row">
+      <div className="shrink-0">
+        <div className="flex justify-center p-6 sm:p-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="size-28 rounded-full ring-1 ring-border ring-offset-2 ring-offset-background select-none sm:size-32 md:size-40"
+            className="size-32 rounded-full border-4 border-border transition-transform select-none hover:scale-105 sm:size-36 md:size-44"
             alt={`${USER.displayName}'s avatar`}
             src={USER.avatar}
             fetchPriority="high"
@@ -56,40 +55,26 @@ export function ProfileHeader() {
         </SimpleTooltip>
       </div>
 
-      <div className="flex flex-1 flex-col">
-        <div
-          className={cn(
-            "flex grow items-end pb-1 pl-4",
-            "bg-[repeating-linear-gradient(315deg,var(--pattern-foreground)_0,var(--pattern-foreground)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] [--pattern-foreground:var(--color-edge)]/56"
-          )}
-        >
-          <div className="line-clamp-1 truncate font-mono text-xs text-zinc-300 select-none dark:text-zinc-800">
-            {"text-3xl "}
-            <span className="inline dark:hidden">text-zinc-950</span>
-            <span className="hidden dark:inline">text-zinc-50</span>
-            {" font-medium"}
-          </div>
-        </div>
-
-        <div className="border-t border-edge">
-          <h1 className="flex items-center pl-4 text-3xl font-semibold">
+      <div className="flex flex-1 flex-col justify-center gap-4 p-6 sm:p-8">
+        <div>
+          <h1 className="flex items-center text-4xl font-bold md:text-5xl">
             {USER.displayName}
             &nbsp;
             <SimpleTooltip content="Verified">
-              <VerifiedIcon className="size-[0.6em] translate-y-px text-info select-none" />
+              <VerifiedIcon className="size-[0.5em] text-info select-none" />
             </SimpleTooltip>
             {USER.namePronunciationUrl && (
               <>
                 &nbsp;
                 <PronounceMyName
-                  className="translate-y-px"
+                  className="scale-75"
                   namePronunciationUrl={USER.namePronunciationUrl}
                 />
               </>
             )}
           </h1>
 
-          <div className="h-12 border-t border-edge py-1 pl-4 sm:h-auto">
+          <div className="mt-3">
             <FlipSentences sentences={USER.flipSentences} />
           </div>
         </div>

@@ -1,7 +1,4 @@
-"use client";
-
 import dayjs from "dayjs";
-import { motion } from "motion/react";
 import type { ProfilePage as PageSchema, WithContext } from "schema-dts";
 
 import { About } from "@/features/profile/components/about";
@@ -29,109 +26,40 @@ export default function Page() {
         }}
       />
 
-      <div className="mx-auto md:max-w-3xl">
-        <ProfileCover />
+      <ProfileCover />
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <ProfileHeader />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Overview />
-        </motion.div>
+        <Overview />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <SocialLinks />
-        </motion.div>
+        <SocialLinks />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <About />
-        </motion.div>
+        <About />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <GitHubContributions />
-        </motion.div>
+        <GitHubContributions />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <TeckStack />
-        </motion.div>
+        <TeckStack />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Blog />
-        </motion.div>
+        <Blog />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Experiences />
-        </motion.div>
+        <Experiences />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Projects />
-        </motion.div>
+        <Projects />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Education />
-        </motion.div>
+        <Education />
         <Separator />
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <Certifications />
-        </motion.div>
+        <Certifications />
       </div>
     </>
   );
@@ -156,9 +84,9 @@ function Separator({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative flex h-8 w-full border-x border-edge",
-        "before:absolute before:-left-[100vw] before:-z-1 before:h-8 before:w-[200vw]",
-        "before:bg-[repeating-linear-gradient(315deg,var(--pattern-foreground)_0,var(--pattern-foreground)_1px,transparent_0,transparent_50%)] before:bg-size-[10px_10px] before:[--pattern-foreground:var(--color-edge)]/56",
+        "relative flex h-20 w-full sm:h-24",
+        "before:absolute before:top-1/2 before:left-0 before:-z-1 before:h-px before:w-full before:-translate-y-1/2",
+        "before:bg-gradient-to-r before:from-transparent before:via-border before:to-transparent",
         className
       )}
     />
