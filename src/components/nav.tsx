@@ -17,7 +17,7 @@ export function Nav({
     <nav
       data-active-id={activeId}
       className={cn(
-        "flex items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4",
+        "flex items-center gap-1 sm:gap-1.5 md:gap-2 lg:gap-3",
         className
       )}
     >

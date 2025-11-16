@@ -61,7 +61,7 @@ export function SiteHeader() {
           <DesktopNav items={MAIN_NAV} />
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
           <CommandMenu posts={posts} />
           <NavItemGitHub />
           <ToggleTheme />
