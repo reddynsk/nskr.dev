@@ -35,6 +35,10 @@ export const MAIN_NAV: NavItem[] = [
     title: "Blog",
     href: "/blog",
   },
+  {
+    title: "Contact",
+    href: "/#overview",
+  },
 ];
 
 export const GITHUB_USERNAME = "nskrdev";

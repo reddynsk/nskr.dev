@@ -56,19 +56,19 @@ export function TeckStack() {
         )}
       >
         <div className="flex flex-col gap-3">
-          <Marquee className="[--duration:40s]" pauseOnHover>
+          <Marquee className="[--duration:60s]" pauseOnHover repeat={4}>
             <ul className="flex gap-3 select-none">
               {firstRow.map(renderTechItem)}
             </ul>
           </Marquee>
 
-          <Marquee className="[--duration:40s]" reverse pauseOnHover>
+          <Marquee className="[--duration:60s]" reverse pauseOnHover repeat={4}>
             <ul className="flex gap-3 select-none">
               {secondRow.map(renderTechItem)}
             </ul>
           </Marquee>
 
-          <Marquee className="[--duration:40s]" pauseOnHover>
+          <Marquee className="[--duration:60s]" pauseOnHover repeat={4}>
             <ul className="flex gap-3 select-none">
               {thirdRow.map(renderTechItem)}
             </ul>

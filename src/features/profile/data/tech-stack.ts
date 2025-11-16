@@ -155,12 +155,6 @@ export const TECH_STACK: TechStack[] = [
     categories: ["AI", "Other"],
   },
   {
-    key: "nvidia-color",
-    title: "NVIDIA",
-    href: "https://www.nvidia.com/",
-    categories: ["AI", "Other"],
-  },
-  {
     key: "sora-color",
     title: "Sora",
     href: "https://openai.com/sora",

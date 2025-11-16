@@ -11,7 +11,7 @@ import { PhoneItem } from "./phone-item";
 
 export function Overview() {
   return (
-    <Panel>
+    <Panel id="overview">
       <PanelHeader>
         <PanelTitle>Overview</PanelTitle>
       </PanelHeader>

@@ -14,8 +14,8 @@ export const USER: User = {
     "Transforming complex workflows into automated solutions",
   ],
   address: "Mancherial, Telangana, India",
-  phoneNumber: "Kzkxotk1NzM3ODQ4ODg=", // base64 encoded +919573784888
-  email: "cmVkQG5za3IubWU=", // base64 encoded red@nskr.me
+  phoneNumber: "KzkxOTU3Mzc4NDg4OA==", // base64 encoded +919573784888
+  email: "cmVkQG5za3IuZGV2", // base64 encoded red@nskr.dev
   website: "https://nskr.me",
   jobTitle: "AI Automation Engineer",
   jobs: [
