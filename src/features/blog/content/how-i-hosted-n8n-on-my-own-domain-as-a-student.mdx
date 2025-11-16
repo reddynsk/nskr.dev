@@ -1,0 +1,251 @@
+---
+title: "How I Hosted n8n on My Own Domain as a Student"
+description: "My journey from cloud platform nightmares to successfully hosting n8n at n8n.nskr.dev using DigitalOcean student credits"
+image: "/og/simple?title=How I Hosted n8n on My Own Domain as a Student"
+category: "automation"
+icon: "server"
+new: true
+createdAt: "2025-11-16"
+updatedAt: "2025-11-16"
+---
+
+# How I Hosted n8n on My Own Domain as a Student (n8n.nskr.dev)
+
+As a student with zero budget for SaaS automation tools, I decided to self-host n8n on my own domain. This is the story of how I went from having just a domain name (nskr.dev) to running a production n8n instance at n8n.nskr.dev—completely free using student credits.
+
+## The Cloud Platform Search
+
+My first challenge was finding a hosting platform that wouldn't drain my wallet.
+
+### Google Cloud Platform: Payment Rejected
+
+GCP offered $300 in free credits for 90 days, which seemed perfect. I spent hours planning my deployment on their e2-micro instance, but when I tried to activate the credits, my payment method was rejected. Dead end.
+
+### Oracle Cloud Infrastructure: The Absolute Nightmare
+
+Next, I turned to Oracle Cloud Infrastructure's Always Free tier. It looked amazing on paper—generous compute resources, completely free forever. What could go wrong?
+
+**Everything.**
+
+#### The Account Suspension Saga
+
+I spent days trying to get my OCI account verified. The card verification system is notoriously brutal—it demands your address details match your bank statement **exactly**, down to capitalization and abbreviation. After multiple failed attempts and temporary charges on my card, I finally got through.
+
+Or so I thought.
+
+Within weeks, I got the dreaded email:
+
+> "This letter is to inform you that your Cloud Services have been suspended. You no longer have access to these services. These services will be terminated within 30 days."
+
+No explanation. No warning. No reason given.
+
+#### The Support Desert
+
+I immediately contacted Oracle Support, desperate to understand what happened. The response? Basically a digital shrug:
+
+> "There is nothing we can do about it."
+
+Like Napoleon declaring defeat before the battle even started. The support team had zero information, zero empathy, and zero solutions. They just said "the system did it" and closed my ticket.
+
+Apparently, Oracle's automated systems randomly suspend free tier accounts for reasons they won't disclose—expired credit cards, "suspicious activity" (aka actually using the free tier), or just algorithmic whims. Students and legitimate users get caught in the same net as crypto miners and spammers, with no appeal process.
+
+After reading horror stories on Reddit and Oracle forums of people losing months of work to arbitrary account terminations, I gave up on OCI entirely. The "Always Free" tier isn't free if Oracle can delete your entire setup without explanation or recourse.
+
+**Lesson learned:** Don't build anything important on Oracle Cloud's free tier. It's a trap.
+
+### Railway: Too Short-Lived
+
+Railway gave me $5 in starter credits, but according to real users, that would only last 20-30 days with basic n8n usage. Not sustainable for a long-term project.
+
+### DigitalOcean: The Winner
+
+Finally, I remembered the GitHub Student Developer Pack offers $200 in DigitalOcean credits valid for one year. After the OCI nightmare, I needed something **reliable** with actual human support.
+
+DigitalOcean delivered. No mysterious suspensions. No Kafkaesque support tickets. Just straightforward cloud hosting that actually works.
+
+## Setting Up the Infrastructure
+
+I created a DigitalOcean droplet with these specs:
+
+- **Region:** Bangalore (closest to me in Hyderabad)
+- **Plan:** Basic Droplet - 1vCPU, 1GB RAM
+- **OS:** Ubuntu 22.04 LTS
+- **Cost:** $6/month normally, but free with student credits
+
+With $200 credit and no risk of arbitrary account termination, this would run for over a year without issues.
+
+## DNS Configuration: Pointing My Domain
+
+I already owned nskr.dev, so I decided to host n8n on a subdomain: n8n.nskr.dev.
+
+### Adding the DNS A Record
+
+In my domain registrar (Namecheap), I added an A record:
+
+- **Type:** A
+- **Host:** n8n
+- **Value:** My DigitalOcean droplet's IP address
+- **TTL:** 300 seconds
+
+At first, when I tried accessing n8n.nskr.dev, I got a DNS_PROBE_POSSIBLE error. This is normal—DNS propagation can take up to 48 hours, though mine took about 20 minutes.
+
+## Docker Deployment
+
+Instead of installing n8n directly with npm, I used Docker for easier management and updates.
+
+I created a simple docker-compose.yml file in `/opt/n8n`:
+
+```yaml
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n.nskr.dev
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://n8n.nskr.dev/
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
+```
+
+Then started it with:
+
+```bash
+docker-compose up -d
+```
+
+## Setting Up Nginx as Reverse Proxy
+
+To enable HTTPS and proper domain routing, I set up Nginx as a reverse proxy.
+
+### Installing Nginx
+
+```bash
+sudo apt update
+sudo apt install nginx
+```
+
+### Configuring the Reverse Proxy
+
+Created `/etc/nginx/sites-available/n8n.nskr.dev`:
+
+```nginx
+server {
+    listen 80;
+    server_name n8n.nskr.dev;
+
+    location / {
+        proxy_pass http://localhost:5678;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # WebSocket support
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+```
+
+Enabled the site:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/n8n.nskr.dev /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+## Adding SSL with Let's Encrypt
+
+Security first! I used Certbot to get a free SSL certificate:
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d n8n.nskr.dev
+```
+
+Certbot automatically:
+- Obtained the SSL certificate
+- Modified my Nginx configuration
+- Set up auto-renewal
+
+Now my n8n instance was accessible at **https://n8n.nskr.dev** with a valid SSL certificate!
+
+## Securing the Instance
+
+### Firewall Configuration
+
+I used UFW to lock down the server:
+
+```bash
+sudo ufw allow 22/tcp    # SSH
+sudo ufw allow 80/tcp    # HTTP
+sudo ufw allow 443/tcp   # HTTPS
+sudo ufw enable
+```
+
+### SSH Key Authentication
+
+For better security, I disabled password authentication and used SSH keys only:
+
+```bash
+# On local machine
+ssh-keygen -t ed25519 -C "red@nskr.dev"
+ssh-copy-id root@droplet-ip
+
+# On server
+sudo nano /etc/ssh/sshd_config
+# Set: PasswordAuthentication no
+sudo systemctl restart ssh
+```
+
+## The Final Result
+
+After all the struggles with Oracle Cloud and payment rejections, I finally had:
+
+✅ **n8n running on n8n.nskr.dev**  
+✅ **HTTPS with auto-renewing SSL certificate**  
+✅ **Docker for easy updates and management**  
+✅ **Nginx reverse proxy for security**  
+✅ **Free for one year with student credits**  
+✅ **No risk of arbitrary account suspension**
+
+## Lessons Learned
+
+1. **Avoid Oracle Cloud's free tier** - The arbitrary suspensions aren't worth the headache
+2. **Student credits are amazing** - GitHub Student Pack's DigitalOcean credits are a game-changer
+3. **Docker simplifies everything** - Updates are just `docker-compose pull && docker-compose up -d`
+4. **SSL is easier than you think** - Certbot makes it literally a one-command process
+5. **DNS propagation takes time** - Be patient, it can take up to 48 hours
+
+## Cost Breakdown
+
+- **Domain (nskr.dev):** Already owned
+- **DigitalOcean Droplet:** $6/month (free with $200 student credits)
+- **SSL Certificate:** Free (Let's Encrypt)
+- **Total cost for one year:** $0
+
+## What's Next?
+
+Now that I have my own n8n instance, I'm building:
+- AI-powered automation workflows with LangChain
+- Custom TypeScript nodes for specialized tasks
+- Integration with my portfolio website
+- Automated deployment pipelines
+
+Self-hosting n8n has been an incredible learning experience in DevOps, DNS, SSL, Docker, and cloud infrastructure. If you're a student, grab those GitHub Student Pack credits and start building!
+
+---
+
+**Have questions about self-hosting n8n?** Feel free to reach out at [red@nskr.dev](mailto:red@nskr.dev) or connect on [LinkedIn](https://linkedin.com/in/nskrdev)!
