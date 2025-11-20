@@ -29,14 +29,14 @@ export function GitHubContributionGraph({
 
   return (
     <ContributionGraph
-      className="mx-auto py-2"
+      className="mx-auto w-full max-w-full"
       data={data}
-      blockSize={11}
-      blockMargin={3}
-      blockRadius={0}
+      blockSize={16}
+      blockMargin={4}
+      blockRadius={2}
     >
       <ContributionGraphCalendar
-        className="no-scrollbar px-2"
+        className="no-scrollbar"
         title="GitHub Contributions"
       >
         {({ activity, dayIndex, weekIndex }) => (
@@ -87,7 +87,7 @@ export function GitHubContributionGraph({
 
 export function GitHubContributionFallback() {
   return (
-    <div className="flex h-[162px] w-full items-center justify-center">
+    <div className="flex h-[200px] w-full items-center justify-center">
       <LoaderIcon className="animate-spin text-muted-foreground" />
     </div>
   );
