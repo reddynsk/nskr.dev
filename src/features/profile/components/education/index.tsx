@@ -1,9 +1,7 @@
 import dayjs from "dayjs";
 
-import { CollapsibleList } from "@/components/collapsible-list";
-
 import { EDUCATION } from "../../data/education";
-import { Panel, PanelHeader, PanelTitle } from "../panel";
+import { Panel, PanelContent, PanelHeader, PanelTitle } from "../panel";
 import { EducationItem } from "./education-item";
 
 // Sort education by start date (most recent first)
@@ -29,12 +27,21 @@ export function Education() {
         </PanelTitle>
       </PanelHeader>
 
-      <CollapsibleList
-        items={SORTED_EDUCATION}
-        max={8}
-        keyExtractor={(item) => item.id}
-        renderItem={(item) => <EducationItem education={item} />}
-      />
+      <PanelContent>
+        <div className="relative">
+          <div className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-border via-border to-transparent md:block" />
+
+          <div className="space-y-12">
+            {SORTED_EDUCATION.map((item, index) => (
+              <EducationItem
+                key={item.id}
+                education={item}
+                position={index % 2 === 0 ? "left" : "right"}
+              />
+            ))}
+          </div>
+        </div>
+      </PanelContent>
     </Panel>
   );
 }

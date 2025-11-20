@@ -1,4 +1,6 @@
-import { FileCheckIcon } from "lucide-react";
+"use client";
+
+import { ExternalLinkIcon } from "lucide-react";
 import { Suspense } from "react";
 
 import { Icons } from "@/components/icons";
@@ -9,8 +11,6 @@ import {
   CollapsibleTrigger,
   CollapsibleWithContext,
 } from "@/components/ui/collapsible";
-import { Separator } from "@/components/ui/separator";
-import { SimpleTooltip } from "@/components/ui/tooltip";
 import { Prose } from "@/components/ui/typography";
 
 import type { Education } from "../../types/education";
@@ -18,97 +18,139 @@ import type { Education } from "../../types/education";
 export function EducationItem({
   className,
   education,
+  position,
 }: {
   className?: string;
   education: Education;
+  position: "left" | "right";
 }) {
   const canExpand = !!education.description;
+  const isLeft = position === "left";
 
   return (
-    <CollapsibleWithContext disabled={!canExpand} asChild>
-      <div className={className}>
-        <div className="flex items-center hover:bg-accent2">
-          <div
-            className="mx-4 flex size-6 shrink-0 items-center justify-center rounded-lg border border-muted-foreground/15 bg-muted ring-1 ring-edge ring-offset-1 ring-offset-background"
-            aria-hidden
-          >
-            <Icons.award className="pointer-events-none size-4 text-muted-foreground" />
+    <div
+      className={`relative grid grid-cols-1 gap-8 md:grid-cols-2 ${className}`}
+    >
+      {isLeft ? (
+        <>
+          <div className="md:pr-8 md:text-right">
+            <EducationCard
+              education={education}
+              canExpand={canExpand}
+              align="right"
+            />
           </div>
+          <div className="hidden md:block" />
+        </>
+      ) : (
+        <>
+          <div className="hidden md:block" />
+          <div className="md:pl-8">
+            <EducationCard
+              education={education}
+              canExpand={canExpand}
+              align="left"
+            />
+          </div>
+        </>
+      )}
 
-          <div className="flex-1 border-l border-dashed border-edge">
-            <CollapsibleTrigger className="flex w-full items-center gap-4 p-4 pr-2 text-left select-none">
-              <div className="flex-1">
-                <h3 className="mb-1 leading-snug font-medium text-balance">
+      <div className="absolute left-1/2 top-6 hidden size-4 -translate-x-1/2 rounded-full border-4 border-background bg-primary shadow-lg ring-2 ring-primary/20 md:block" />
+    </div>
+  );
+}
+
+function EducationCard({
+  education,
+  canExpand,
+  align,
+}: {
+  education: Education;
+  canExpand: boolean;
+  align: "left" | "right";
+}) {
+  return (
+    <CollapsibleWithContext disabled={!canExpand} asChild>
+      <article className="group relative overflow-hidden rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-border hover:bg-card hover:shadow-lg">
+        <CollapsibleTrigger className="block w-full text-left transition-colors select-none">
+          <div className="flex flex-col gap-3 p-5">
+            <div className="flex items-start justify-between gap-4">
+              <div
+                className={`flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-2 ring-primary/20 ${align === "right" ? "order-2" : ""}`}
+                aria-hidden
+              >
+                <Icons.award className="size-6" />
+              </div>
+
+              <div className={`flex-1 ${align === "right" ? "text-right" : ""}`}>
+                <h3 className="mb-2 leading-tight font-semibold text-balance">
                   {education.degree}
                 </h3>
 
                 <div className="mb-2 text-sm text-muted-foreground">
                   {education.institution}
-                  {education.location && ` • ${education.location}`}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-                  <dl>
-                    <dt className="sr-only">Period</dt>
-                    <dd>{education.period}</dd>
-                  </dl>
-
-                  {education.achievements && (
-                    <>
-                      <Separator
-                        className="data-[orientation=vertical]:h-4"
-                        orientation="vertical"
-                      />
-                      <dl>
-                        <dt className="sr-only">Achievements</dt>
-                        <dd>{education.achievements}</dd>
-                      </dl>
-                    </>
-                  )}
-                </div>
+                {education.location && (
+                  <div className="text-xs text-muted-foreground">
+                    {education.location}
+                  </div>
+                )}
               </div>
-
-              {education.referenceLink && (
-                <SimpleTooltip content="Open Reference Link">
-                  <a
-                    className="relative flex size-6 shrink-0 items-center justify-center text-muted-foreground after:absolute after:-inset-2 hover:text-foreground"
-                    href={education.referenceLink}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <FileCheckIcon
-                      className="pointer-events-none size-4"
-                      aria-hidden
-                    />
-                    <span className="sr-only">Open Reference Link</span>
-                  </a>
-                </SimpleTooltip>
-              )}
 
               {canExpand && (
                 <div
-                  className="shrink-0 text-muted-foreground [&_svg]:size-4"
+                  className={`shrink-0 pt-1 text-muted-foreground [&_svg]:size-4 ${align === "right" ? "order-1" : ""}`}
                   aria-hidden
                 >
                   <CollapsibleChevronsIcon />
                 </div>
               )}
-            </CollapsibleTrigger>
+            </div>
+
+            <div
+              className={`flex flex-col gap-2 text-sm ${align === "right" ? "items-end" : "items-start"}`}
+            >
+              <div className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 font-mono text-xs">
+                {education.period}
+              </div>
+
+              {education.achievements && (
+                <div className="text-xs text-muted-foreground">
+                  {education.achievements}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </CollapsibleTrigger>
 
         {canExpand && (
-          <CollapsibleContent className="group overflow-hidden duration-300 data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-            <div className="border-t border-dashed border-edge">
-              <Prose className="p-4 duration-300 group-data-[state=closed]:animate-fade-out group-data-[state=open]:animate-fade-in">
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Markdown>{education.description}</Markdown>
-                </Suspense>
-              </Prose>
+          <CollapsibleContent className="overflow-hidden duration-300 data-[state=closed]:animate-collapsible-fade-up data-[state=open]:animate-collapsible-fade-down">
+            <div className="space-y-4 border-t border-border/50 bg-muted/20 p-5">
+              {education.description && (
+                <Prose className="text-sm">
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Markdown>{education.description}</Markdown>
+                  </Suspense>
+                </Prose>
+              )}
+
+              {education.referenceLink && (
+                <a
+                  className="inline-flex items-center gap-2 text-sm text-primary transition-colors hover:text-primary/80 hover:underline"
+                  href={education.referenceLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span>View Reference</span>
+                  <ExternalLinkIcon className="size-4" aria-hidden />
+                </a>
+              )}
             </div>
           </CollapsibleContent>
         )}
-      </div>
+      </article>
     </CollapsibleWithContext>
   );
 }

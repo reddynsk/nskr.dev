@@ -1,4 +1,6 @@
-import { InfinityIcon, LinkIcon } from "lucide-react";
+"use client";
+
+import { ExternalLinkIcon, InfinityIcon } from "lucide-react";
 import Image from "next/image";
 import { Suspense } from "react";
 import React from "react";
@@ -32,50 +34,48 @@ export function ProjectItem({
 
   return (
     <CollapsibleWithContext defaultOpen={project.isExpanded} asChild>
-      <div
-        className={`overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/20 hover:shadow-lg ${className}`}
+      <article
+        className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-border hover:bg-card hover:shadow-lg ${className}`}
       >
-        <div className="flex items-center">
-          {project.logo ? (
-            <div className="flex shrink-0 items-center justify-center p-4">
-              <Image
-                src={project.logo}
-                alt={project.title}
-                width={40}
-                height={40}
-                quality={100}
-                className="size-10 select-none"
-                unoptimized
-                aria-hidden="true"
-              />
-            </div>
-          ) : (
-            <div
-              className="flex shrink-0 items-center justify-center p-4"
-              aria-hidden="true"
-            >
-              <div className="flex size-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                <Icons.project className="size-6" />
-              </div>
-            </div>
-          )}
+        <CollapsibleTrigger className="block w-full text-left transition-colors select-none">
+          <div className="flex flex-col gap-4 p-4">
+            <div className="flex items-start gap-4">
+              {project.logo ? (
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-2">
+                  <Image
+                    src={project.logo}
+                    alt={project.title}
+                    width={32}
+                    height={32}
+                    quality={100}
+                    className="size-full object-contain select-none"
+                    unoptimized
+                    aria-hidden="true"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-2 ring-primary/20"
+                  aria-hidden="true"
+                >
+                  <Icons.project className="size-6" />
+                </div>
+              )}
 
-          <div className="flex-1 border-l border-border">
-            <CollapsibleTrigger className="flex w-full items-center gap-4 p-4 pr-2 text-left transition-colors select-none hover:bg-muted/50">
-              <div className="flex-1">
-                <h3 className="mb-1 leading-snug font-medium text-balance">
+              <div className="flex-1 min-w-0">
+                <h3 className="mb-2 leading-tight font-semibold text-balance line-clamp-2">
                   {project.title}
                 </h3>
 
-                <dl className="text-sm text-muted-foreground">
+                <dl className="flex items-center gap-2 text-xs text-muted-foreground">
                   <dt className="sr-only">Period</dt>
-                  <dd className="flex items-center gap-0.5">
+                  <dd className="flex items-center gap-1 font-mono">
                     <span>{start}</span>
-                    <span className="font-mono">—</span>
+                    <span>—</span>
                     {isOngoing ? (
                       <>
                         <InfinityIcon
-                          className="size-4.5 translate-y-[0.5px]"
+                          className="size-3.5 translate-y-[0.5px]"
                           aria-hidden
                         />
                         <span className="sr-only">Present</span>
@@ -87,83 +87,126 @@ export function ProjectItem({
                 </dl>
               </div>
 
-              <SimpleTooltip content="Open Project Link">
-                <a
-                  className="relative flex size-6 shrink-0 items-center justify-center text-muted-foreground after:absolute after:-inset-2 hover:text-foreground"
-                  href={addQueryParams(project.link, UTM_PARAMS)}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <LinkIcon className="pointer-events-none size-4" />
-                  <span className="sr-only">Open Project Link</span>
-                </a>
-              </SimpleTooltip>
-
               <div
-                className="shrink-0 text-muted-foreground [&_svg]:size-4"
+                className="shrink-0 pt-1 text-muted-foreground [&_svg]:size-4"
                 aria-hidden
               >
                 <CollapsibleChevronsIcon />
               </div>
-            </CollapsibleTrigger>
-          </div>
-        </div>
-
-        <CollapsibleContent className="group overflow-hidden duration-300 data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-          <div className="border-t border-border bg-muted/30">
-            <div className="space-y-4 p-6 duration-300 group-data-[state=closed]:animate-fade-out group-data-[state=open]:animate-fade-in">
-              {project.description && (
-                <Prose>
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <Markdown>{project.description}</Markdown>
-                  </Suspense>
-                </Prose>
-              )}
-
-              {project.skills.length > 0 && (
-                <ul className="flex flex-wrap gap-1.5">
-                  {project.skills.map((skill, index) => {
-                    const techItem = TECH_STACK.find(
-                      (item) =>
-                        item.title === skill ||
-                        item.displayName === skill ||
-                        item.key === skill.toLowerCase()
-                    );
-                    const iconKey = techItem?.key || skill.toLowerCase();
-                    const displayName =
-                      techItem?.displayName || techItem?.title || skill;
-                    const icon = getIcon(iconKey);
-
-                    return (
-                      <li key={index} className="flex">
-                        <Tag className="flex items-center gap-1">
-                          {icon && techItem?.href ? (
-                            <SimpleTooltip
-                              content={`Visit ${displayName} website`}
-                            >
-                              <a
-                                href={techItem.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block"
-                              >
-                                {icon}
-                              </a>
-                            </SimpleTooltip>
-                          ) : (
-                            icon
-                          )}
-                          {displayName}
-                        </Tag>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
             </div>
+
+            {project.skills.length > 0 && (
+              <ul className="flex flex-wrap gap-1.5">
+                {project.skills.slice(0, 4).map((skill, index) => {
+                  const techItem = TECH_STACK.find(
+                    (item) =>
+                      item.title === skill ||
+                      item.displayName === skill ||
+                      item.key === skill.toLowerCase()
+                  );
+                  const iconKey = techItem?.key || skill.toLowerCase();
+                  const displayName =
+                    techItem?.displayName || techItem?.title || skill;
+                  const icon = getIcon(iconKey);
+
+                  return (
+                    <li key={index} className="flex">
+                      <Tag className="flex items-center gap-1 text-xs">
+                        {icon && techItem?.href ? (
+                          <SimpleTooltip
+                            content={`Visit ${displayName} website`}
+                          >
+                            <a
+                              href={techItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {icon}
+                            </a>
+                          </SimpleTooltip>
+                        ) : (
+                          icon
+                        )}
+                        {displayName}
+                      </Tag>
+                    </li>
+                  );
+                })}
+                {project.skills.length > 4 && (
+                  <li className="flex">
+                    <Tag className="text-xs">+{project.skills.length - 4}</Tag>
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
+        </CollapsibleTrigger>
+
+        <CollapsibleContent className="overflow-hidden duration-300 data-[state=closed]:animate-collapsible-fade-up data-[state=open]:animate-collapsible-fade-down">
+          <div className="space-y-4 border-t border-border/50 bg-muted/20 p-4">
+            {project.description && (
+              <Prose>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Markdown>{project.description}</Markdown>
+                </Suspense>
+              </Prose>
+            )}
+
+            {project.skills.length > 4 && (
+              <ul className="flex flex-wrap gap-1.5">
+                {project.skills.slice(4).map((skill, index) => {
+                  const techItem = TECH_STACK.find(
+                    (item) =>
+                      item.title === skill ||
+                      item.displayName === skill ||
+                      item.key === skill.toLowerCase()
+                  );
+                  const iconKey = techItem?.key || skill.toLowerCase();
+                  const displayName =
+                    techItem?.displayName || techItem?.title || skill;
+                  const icon = getIcon(iconKey);
+
+                  return (
+                    <li key={index + 4} className="flex">
+                      <Tag className="flex items-center gap-1 text-xs">
+                        {icon && techItem?.href ? (
+                          <SimpleTooltip
+                            content={`Visit ${displayName} website`}
+                          >
+                            <a
+                              href={techItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block"
+                            >
+                              {icon}
+                            </a>
+                          </SimpleTooltip>
+                        ) : (
+                          icon
+                        )}
+                        {displayName}
+                      </Tag>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            <a
+              className="inline-flex items-center gap-2 text-sm text-primary transition-colors hover:text-primary/80 hover:underline"
+              href={addQueryParams(project.link, UTM_PARAMS)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>View Project</span>
+              <ExternalLinkIcon className="size-4" aria-hidden />
+            </a>
           </div>
         </CollapsibleContent>
-      </div>
+      </article>
     </CollapsibleWithContext>
   );
 }
