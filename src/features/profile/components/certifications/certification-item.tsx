@@ -1,11 +1,11 @@
+"use client";
+
 import dayjs from "dayjs";
-import { ArrowUpRightIcon } from "lucide-react";
+import { ExternalLinkIcon, ShieldCheckIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 import { getIcon, Icons } from "@/components/icons";
-import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
 
 import type { Certification } from "../../types/certifications";
 
@@ -16,73 +16,76 @@ export function CertificationItem({
   className?: string;
   certification: Certification;
 }) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
   return (
-    <a
-      className={cn("group/cert flex items-center pr-2", className)}
-      href={certification.credentialURL}
-      target="_blank"
-      rel="noopener"
+    <article
+      className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card hover:shadow-lg ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {certification.issuerLogoURL ? (
-        <Image
-          src={certification.issuerLogoURL}
-          alt={certification.issuer}
-          width={32}
-          height={32}
-          quality={100}
-          className="mx-4 flex size-6 shrink-0 select-none"
-          unoptimized
-          aria-hidden
-        />
-      ) : (
-        <div
-          className={cn(
-            "mx-4 flex size-6 shrink-0 items-center justify-center rounded-lg select-none",
-            "border border-muted-foreground/15 ring-1 ring-edge ring-offset-1 ring-offset-background",
-            "bg-muted text-muted-foreground [&_svg]:size-4"
+      <div className="flex flex-col items-center gap-4 p-6 text-center">
+        <div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 p-4 ring-2 ring-primary/20 transition-all group-hover:scale-105 group-hover:ring-primary/40">
+          {certification.issuerLogoURL ? (
+            <Image
+              src={certification.issuerLogoURL}
+              alt={certification.issuer}
+              width={64}
+              height={64}
+              quality={100}
+              className="size-full object-contain select-none"
+              unoptimized
+              aria-hidden="true"
+            />
+          ) : (
+            <div className="text-primary [&_svg]:size-10" aria-hidden="true">
+              {getIcon(certification.issuerIconName) ?? <Icons.certificate />}
+            </div>
           )}
-          aria-hidden
-        >
-          {getIcon(certification.issuerIconName) ?? <Icons.certificate />}
         </div>
-      )}
 
-      <div className="flex-1 space-y-1 border-l border-dashed border-edge p-4 pr-2">
-        <h3 className="leading-snug font-medium text-balance underline-offset-4 group-hover/cert:underline">
-          {certification.title}
-        </h3>
+        <div className="space-y-2">
+          <h3 className="leading-tight font-semibold text-balance line-clamp-2">
+            {certification.title}
+          </h3>
 
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-          <dl>
-            <dt className="sr-only">Issued by</dt>
-            <dd>
-              <span aria-hidden>@</span>
-              <span className="ml-0.5">{certification.issuer}</span>
-            </dd>
-          </dl>
+          <p className="text-sm text-muted-foreground">{certification.issuer}</p>
+        </div>
 
-          <Separator
-            className="data-[orientation=vertical]:h-4"
-            orientation="vertical"
-          />
-
-          <dl>
-            <dt className="sr-only">Issued on</dt>
-            <dd>
-              <time dateTime={dayjs(certification.issueDate).toISOString()}>
-                {dayjs(certification.issueDate).format("DD.MM.YYYY")}
-              </time>
-            </dd>
-          </dl>
+        <div className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1.5 text-xs font-medium">
+          <ShieldCheckIcon className="size-3.5" aria-hidden />
+          <time dateTime={dayjs(certification.issueDate).toISOString()}>
+            {dayjs(certification.issueDate).format("MMM YYYY")}
+          </time>
         </div>
       </div>
 
-      {certification.credentialURL && (
-        <ArrowUpRightIcon
-          className="size-4 text-muted-foreground"
-          aria-hidden
-        />
+      <div
+        className={`absolute inset-x-0 bottom-0 flex items-center justify-center border-t border-border/50 bg-primary/10 p-3 transition-all ${
+          isHovered
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0"
+        }`}
+      >
+        <a
+          href={certification.credentialURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span>View Certificate</span>
+          <ExternalLinkIcon className="size-4" aria-hidden />
+        </a>
+      </div>
+
+      {certification.credentialID && (
+        <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="rounded-md bg-background/95 px-2 py-1 text-xs font-mono text-muted-foreground shadow-sm">
+            ID: {certification.credentialID.substring(0, 8)}...
+          </div>
+        </div>
       )}
-    </a>
+    </article>
   );
 }

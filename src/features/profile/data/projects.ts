@@ -34,7 +34,7 @@ export const PROJECTS: Project[] = [
 - Geometric angle calculations for move classification
 - Health monitoring and JSON response formatting
 - Production-grade deployment on cloud infrastructure`,
-    logo: "/images/projects/dance-insight-logo.png", // Replace with project logo/screenshot (300x200px recommended)
+    
     isExpanded: true,
   },
 
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
 - NLP-powered semantic matching algorithms
 - Grammar checking and readability scoring
 - Flask-based REST API for easy integration`,
-    logo: "/images/projects/arise-logo.png", // Replace with project logo/screenshot (300x200px recommended)
+    
     isExpanded: true,
   },
 
@@ -189,7 +189,7 @@ export const PROJECTS: Project[] = [
 - Mobile-first responsive design for all devices
 - Performance optimized with <3 second load times
 - SEO optimized for search visibility`,
-    logo: "/images/projects/portfolio-logo.svg", // Replace with project logo/screenshot (300x200px recommended)
+    
     isExpanded: false,
   },
 

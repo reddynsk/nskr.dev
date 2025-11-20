@@ -40,27 +40,12 @@ export function ProjectItem({
         <CollapsibleTrigger className="block w-full text-left transition-colors select-none">
           <div className="flex flex-col gap-4 p-4">
             <div className="flex items-start gap-4">
-              {project.logo ? (
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-2">
-                  <Image
-                    src={project.logo}
-                    alt={project.title}
-                    width={32}
-                    height={32}
-                    quality={100}
-                    className="size-full object-contain select-none"
-                    unoptimized
-                    aria-hidden="true"
-                  />
-                </div>
-              ) : (
-                <div
+              <div
                   className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-2 ring-primary/20"
                   aria-hidden="true"
                 >
                   <Icons.project className="size-6" />
                 </div>
-              )}
 
               <div className="flex-1 min-w-0">
                 <h3 className="mb-2 leading-tight font-semibold text-balance line-clamp-2">
