@@ -49,12 +49,7 @@ export function TeckStack() {
         <PanelTitle>Stack</PanelTitle>
       </PanelHeader>
 
-      <PanelContent
-        className={cn(
-          "bg-gradient-to-b from-muted/30 via-muted/10 to-transparent",
-          "overflow-hidden"
-        )}
-      >
+      <PanelContent className="overflow-hidden">
         <div className="flex flex-col gap-3">
           <Marquee className="[--duration:60s]" pauseOnHover repeat={4}>
             <ul className="flex gap-3 select-none">
