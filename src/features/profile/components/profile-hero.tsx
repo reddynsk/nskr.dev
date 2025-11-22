@@ -13,13 +13,18 @@ import { FlipSentences } from "@/registry/flip-sentences";
 import { VerifiedIcon } from "./verified-icon";
 
 export function ProfileHero() {
-    const TechPill = ({ name, iconKey, className }: { name: string; iconKey: string; className?: string }) => {
+    const TechPill = ({ name, iconKey, className, url }: { name: string; iconKey: string; className?: string; url: string }) => {
         const icon = getIcon(iconKey, 14);
         return (
-            <span className={cn("inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/50 px-2 py-0.5 text-sm font-medium align-middle text-foreground", className)}>
+            <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn("inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/50 px-2 py-0.5 text-sm font-medium align-middle text-foreground transition-colors hover:bg-muted", className)}
+            >
                 {icon}
                 {name}
-            </span>
+            </a>
         );
     };
 
@@ -60,13 +65,17 @@ export function ProfileHero() {
                 <div className="max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
                     <p>
                         I build AI agentic automations for business to help reduce the everyday tedious tasks with{" "}
-                        <TechPill name="n8n" iconKey="n8n" className="text-[#EA4B71] bg-[#EA4B71]/10 border-[#EA4B71]/20" />
+                        <TechPill name="n8n" iconKey="n8n" className="text-[#EA4B71] bg-[#EA4B71]/10 border-[#EA4B71]/20" url="https://n8n.io" />
                         ,{" "}
-                        <TechPill name="LangChain" iconKey="langchain-color" className="text-foreground" />
+                        <TechPill name="LangChain" iconKey="langchain-color" className="text-foreground" url="https://www.langchain.com" />
                         {" "}and{" "}
-                        <TechPill name="Python" iconKey="python" className="text-[#3776AB] bg-[#3776AB]/10 border-[#3776AB]/20" />
-                        . Enthusiastic about RAG and currently learning {" "}
-                        <TechPill name="PostgreSQL" iconKey="postgresql" className="text-[#336791] bg-[#336791]/10 border-[#336791]/20" />
+                        <TechPill name="Python" iconKey="python" className="text-[#3776AB] bg-[#3776AB]/10 border-[#3776AB]/20" url="https://www.python.org" />
+                        . Enthusiastic about RAG and{" "}
+                        <TechPill name="MCP tools" iconKey="mcp" className="text-foreground" url="https://modelcontextprotocol.io" />
+                        , currently learning{" "}
+                        <TechPill name="PostgreSQL" iconKey="postgresql" className="text-[#336791] bg-[#336791]/10 border-[#336791]/20" url="https://www.postgresql.org" />
+                        {" "}and{" "}
+                        <TechPill name="Redis" iconKey="redis" className="text-[#DC382D] bg-[#DC382D]/10 border-[#DC382D]/20" url="https://redis.io" />
                         .
                     </p>
                 </div>
@@ -98,9 +107,9 @@ export function ProfileHero() {
                                     href={link.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex size-10 items-center justify-center rounded-full border border-border bg-muted/50 text-muted-foreground transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+                                    className="text-muted-foreground transition-colors hover:text-foreground"
                                 >
-                                    {IconComponent && <IconComponent className="size-4" />}
+                                    {IconComponent && <IconComponent className="size-5" />}
                                     <span className="sr-only">{link.title}</span>
                                 </a>
                             </SimpleTooltip>
