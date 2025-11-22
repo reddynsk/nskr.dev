@@ -130,7 +130,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="overflow-x-hidden">
+      <body className="flex min-h-screen flex-col overflow-x-hidden">
         <Providers>{children}</Providers>
       </body>
     </html>

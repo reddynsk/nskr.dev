@@ -24,7 +24,7 @@ export const CERTIFICATIONS: Certification[] = [
     title: "Ethical Hacking",
     issuer: "CompTIA (LinkedIn Learning)",
     issuerIconName: "comptia", // or use custom logo if CompTIA icon not available
-    issueDate: "2024-01-01",
+    issueDate: "2022-12-01",
     credentialID:
       "538eb1a9cd6162053897821b307026b64273d668ad4abfddf8685dfe374d51e4",
     credentialURL:

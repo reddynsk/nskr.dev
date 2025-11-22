@@ -3,7 +3,7 @@ import type { NavItem } from "@/types/nav";
 
 export const SITE_INFO = {
   name: USER.displayName,
-  url: process.env.APP_URL || "https://nskr.me",
+  url: process.env.APP_URL || "https://nskr.dev",
   ogImage: USER.ogImage,
   description: USER.bio,
   keywords: USER.keywords,
@@ -20,18 +20,6 @@ export const MAIN_NAV: NavItem[] = [
     href: "/#about",
   },
   {
-    title: "Stack",
-    href: "/#stack",
-  },
-  {
-    title: "Experience",
-    href: "/#experience",
-  },
-  {
-    title: "Projects",
-    href: "/#projects",
-  },
-  {
     title: "Blog",
     href: "/blog",
   },
@@ -46,7 +34,7 @@ export const SOURCE_CODE_GITHUB_REPO = "nskrdev/nskr";
 export const SOURCE_CODE_GITHUB_URL = "https://github.com/nskrdev/nskr";
 
 export const UTM_PARAMS = {
-  utm_source: "nskr.me",
+  utm_source: "nskr.dev",
   utm_medium: "portfolio_website",
   utm_campaign: "referral",
 };

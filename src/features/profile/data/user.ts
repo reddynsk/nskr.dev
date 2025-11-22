@@ -9,9 +9,10 @@ export const USER: User = {
   pronouns: "he/him",
   bio: "Helping businesses build meaningful automations using agentic AI",
   flipSentences: [
-    "Building Intelligent Systems with AI & Automation",
-    "Aspiring AI Engineer & DevOps Enthusiast",
-    "Transforming complex workflows into automated solutions",
+    "Open Source Contributor",
+    "AI and Automation Enthusiast",
+    "Helping Businesses to Innovate and Automate Using AI",
+    "Masters Student at LPU Punjab, India",
   ],
   address: "Mancherial, Telangana, India",
   phoneNumber: "KzkxOTU3Mzc4NDg4OA==", // base64 encoded +919573784888
