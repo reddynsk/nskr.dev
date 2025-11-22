@@ -1,23 +1,15 @@
-"use client";
-
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { getAllPosts } from "@/features/blog/actions";
 import { PostItem } from "@/features/blog/components/post-item";
-import type { Post } from "@/features/blog/types/post";
 
 import { Panel, PanelContent, PanelHeader, PanelTitle } from "./panel";
 
-export function Blog() {
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
-
-  useEffect(() => {
-    getAllPosts().then(setAllPosts);
-  }, []);
-
+export async function Blog() {
+  const allPosts = await getAllPosts();
   const recentPosts = allPosts.slice(0, 2);
 
   return (
