@@ -1,5 +1,5 @@
 import { FileTextIcon, MailIcon } from "lucide-react";
-import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 import { getIcon } from "@/components/icons";
@@ -10,7 +10,6 @@ import { USER } from "@/features/profile/data/user";
 import { cn } from "@/lib/utils";
 import { FlipSentences } from "@/registry/flip-sentences";
 
-import { SocialLinkItem } from "./social-links/social-link-item";
 import { VerifiedIcon } from "./verified-icon";
 
 export function ProfileHero() {
@@ -30,10 +29,12 @@ export function ProfileHero() {
             <div className="shrink-0">
                 <div className="relative flex justify-center p-1 sm:p-2">
                     <div className="relative size-32 overflow-hidden rounded-full border-4 border-border shadow-xl sm:size-36 md:size-44">
-                        <img
+                        <Image
                             src={USER.avatar}
                             alt={USER.displayName}
-                            className="h-full w-full object-cover"
+                            fill
+                            className="object-cover"
+                            priority
                         />
                     </div>
                     <div className="absolute bottom-3 right-3 size-6 rounded-full border-4 border-background bg-green-500 shadow-sm sm:bottom-4 sm:right-4 sm:size-7" />
