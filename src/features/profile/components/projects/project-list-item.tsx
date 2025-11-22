@@ -1,7 +1,6 @@
 "use client";
 
 import { ExternalLinkIcon } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 
 import { getIcon, Icons } from "@/components/icons";
@@ -30,11 +29,11 @@ export function ProjectListItem({ project }: { project: Project }) {
         <CollapsibleTrigger className="block w-full text-left transition-colors select-none">
           <div className="flex items-center gap-4 p-4">
             <div
-                className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
-                aria-hidden="true"
-              >
-                <Icons.project className="size-5" />
-              </div>
+              className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+              aria-hidden="true"
+            >
+              <Icons.project className="size-5" />
+            </div>
 
             <div className="flex-1 min-w-0">
               <h3 className="mb-1 leading-tight font-medium text-balance line-clamp-1">

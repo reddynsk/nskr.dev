@@ -1,6 +1,6 @@
 {
   "name": "nskr.me",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "description": "Red's Portfolio - AI Engineer & DevOps enthusiast passionate about intelligent automation and machine learning systems.",
   "homepage": "https://nskr.me",
   "license": "MIT",
@@ -21,10 +21,10 @@
     "url": "git+https://github.com/nskrdev/nskr.git"
   },
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 1408",
     "build": "next build",
     "start": "next start",
-    "preview": "next build && next start -p 3000",
+    "preview": "next build && next start -p 1408",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "check-types": "tsc --noEmit --pretty",
