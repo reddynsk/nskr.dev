@@ -277,6 +277,8 @@ const pngIconMap: Record<string, string> = {
   swagger: "Swagger",
   stripe: "stripe",
   cuda: "cuda",
+  "rest-api": "RESTFULAPI",
+  html5: "HTML5",
 };
 
 export function getIconForLanguageExtension(language: string) {

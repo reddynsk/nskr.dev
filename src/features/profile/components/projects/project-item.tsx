@@ -1,7 +1,6 @@
 "use client";
 
 import { ExternalLinkIcon, InfinityIcon } from "lucide-react";
-import Image from "next/image";
 import { Suspense } from "react";
 import React from "react";
 
@@ -41,11 +40,11 @@ export function ProjectItem({
           <div className="flex flex-col gap-4 p-4">
             <div className="flex items-start gap-4">
               <div
-                  className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-2 ring-primary/20"
-                  aria-hidden="true"
-                >
-                  <Icons.project className="size-6" />
-                </div>
+                className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-2 ring-primary/20"
+                aria-hidden="true"
+              >
+                <Icons.project className="size-6" />
+              </div>
 
               <div className="flex-1 min-w-0">
                 <h3 className="mb-2 leading-tight font-semibold text-balance line-clamp-2">

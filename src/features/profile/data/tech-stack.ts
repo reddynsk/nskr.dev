@@ -106,18 +106,18 @@ export const TECH_STACK: TechStack[] = [
     href: "https://www.langchain.com/",
     categories: ["AI", "Library"],
   },
-  {
-    key: "langgraph-color",
-    title: "LangGraph",
-    href: "https://www.langchain.com/langgraph",
-    categories: ["AI", "Library"],
-  },
-  {
-    key: "langsmith-color",
-    title: "LangSmith",
-    href: "https://www.langchain.com/langsmith",
-    categories: ["AI", "Tools"],
-  },
+  // {
+  //   key: "langgraph-color",
+  //   title: "LangGraph",
+  //   href: "https://www.langchain.com/langgraph",
+  //   categories: ["AI", "Library"],
+  // },
+  // {
+  //   key: "langsmith-color",
+  //   title: "LangSmith",
+  //   href: "https://www.langchain.com/langsmith",
+  //   categories: ["AI", "Tools"],
+  // },
   {
     key: "bedrock-color",
     title: "AWS Bedrock",

@@ -8,32 +8,33 @@ export function NotFound({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex h-[calc(100svh-5.5rem)] flex-col items-center justify-center",
+        "relative flex h-[calc(100svh-5.5rem)] flex-col items-center justify-center overflow-hidden",
         className
       )}
     >
-      <svg
-        className="h-28 w-full text-border"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 514 258"
-        fill="none"
-      >
-        <path
-          d="M65 193v64h128v-64H65Zm0 0H1V65h64m0 128V65m384 0H321v128h128m0-128V1H257v256h192v-64m0-128v128m0-128h64v128h-64M65 65h128V1H65v64Z"
-          stroke="currentColor"
-          strokeWidth="1"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-20">
+        <div className="h-[500px] w-[500px] rounded-full bg-primary/20 blur-[100px]" />
+      </div>
 
-      <h1 className="mt-8 mb-6 font-mono text-8xl font-medium">404</h1>
+      <div className="relative z-10 flex flex-col items-center text-center">
+        <h1 className="text-[10rem] font-bold leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/20 sm:text-[12rem]">
+          404
+        </h1>
+        <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+          Lost in the void?
+        </h2>
+        <p className="mt-4 max-w-md text-muted-foreground">
+          The page you are looking for doesn&apos;t exist or has been moved.
+          Let&apos;s get you back on track.
+        </p>
 
-      <Button variant="default" asChild>
-        <Link href="/">
-          Go to Home
-          <ArrowRightIcon />
-        </Link>
-      </Button>
+        <Button variant="default" size="lg" asChild className="mt-8 rounded-full px-8">
+          <Link href="/">
+            Return Home
+            <ArrowRightIcon className="ml-2 size-4" />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
