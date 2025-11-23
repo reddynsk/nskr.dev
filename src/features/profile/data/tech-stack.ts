@@ -412,7 +412,7 @@ export const TECH_STACK: TechStack[] = [
 
   // Version Control & Collaboration
   {
-    key: "git", // No icon available - will show fallback
+    key: "git",
     title: "Git",
     href: "https://git-scm.com/",
     categories: ["Version Control"],
