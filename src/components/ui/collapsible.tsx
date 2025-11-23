@@ -1,10 +1,8 @@
 "use client";
 
+import { ChevronsUpDown } from "lucide-react";
 import { Collapsible as CollapsiblePrimitive } from "radix-ui";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
-
-import type { ChevronsDownUpIconHandle } from "../animated-icons/chevrons-down-up-icon";
-import { ChevronsDownUpIcon } from "../animated-icons/chevrons-down-up-icon";
+import { createContext, useState } from "react";
 
 const Collapsible = CollapsiblePrimitive.Root;
 
@@ -17,18 +15,6 @@ type CollapsibleContextType = {
 };
 
 const CollapsibleContext = createContext<CollapsibleContextType | null>(null);
-
-const useCollapsible = () => {
-  const context = useContext(CollapsibleContext);
-
-  if (!context) {
-    throw new Error(
-      "Collapsible components must be used within a CollapsibleWithContext"
-    );
-  }
-
-  return context;
-};
 
 function CollapsibleWithContext({
   defaultOpen,
@@ -44,22 +30,7 @@ function CollapsibleWithContext({
 }
 
 function CollapsibleChevronsIcon() {
-  const { open } = useCollapsible();
-
-  const ref = useRef<ChevronsDownUpIconHandle>(null);
-
-  useEffect(() => {
-    const controls = ref.current;
-    if (!controls) return;
-
-    if (open) {
-      controls.startAnimation();
-    } else {
-      controls.stopAnimation();
-    }
-  }, [open]);
-
-  return <ChevronsDownUpIcon ref={ref} />;
+  return <ChevronsUpDown className="h-4 w-4" />;
 }
 
 export {
