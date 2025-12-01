@@ -1,14 +1,10 @@
-# [nskr.dev](https://nskr.dev)
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Audiowide&size=40&pause=10&color=00D9FF&center=true&vCenter=true&width=800&lines=Portfolio+Website" alt="Typing SVG" />
+</div>
 
 A minimal portfolio, component registry, and blog to showcase my work as a Design Engineer.
 
 Check out the live site: [nskr.dev](https://nskr.dev)
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://nskr.dev/images/screenshot-desktop-dark.webp">
-  <source media="(prefers-color-scheme: light)" srcset="https://nskr.dev/images/screenshot-desktop-light.webp">
-  <img src="https://nskr.dev/images/screenshot-desktop-light.webp" alt="Portfolio Screenshot">
-</picture>
 
 ## Overview
 
