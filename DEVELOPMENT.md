@@ -26,7 +26,6 @@
 - `pnpm check-types` - Run TypeScript type checking
 - `pnpm format:check` - Check code formatting
 - `pnpm format:write` - Format code
-- `pnpm registry:build` - Build component registry
 
 ## Project Structure
 
@@ -53,9 +52,6 @@ The application works without any environment variables thanks to sensible fallb
 # Site configuration (defaults to https://nskr.me)
 APP_URL=https://your-custom-domain.com
 
-# Component Registry URL (defaults to https://nskr.me/r)
-REGISTRY_URL=https://your-registry-url.com
-
 # DMCA URL (optional - only shown in footer if provided)
 NEXT_PUBLIC_DMCA_URL=https://www.dmca.com/Protection/Status.aspx?ID=your-id-here
 
@@ -71,13 +67,15 @@ GITHUB_API_TOKEN=your_github_personal_access_token_here
 3. **Import Sorting:** Imports are automatically sorted with `simple-import-sort`
 4. **Git Hooks:** Pre-commit hooks run linting and formatting checks
 
-## Component Registry
+## Using This Project as a Template
 
-This project includes a custom component registry powered by shadcn CLI. Components are stored in the `public/r/` directory and can be installed using:
+Interested in customizing this site for your own portfolio? Follow these steps:
 
-```bash
-npx shadcn@latest add @nskr/component-name
-```
+1. **Fork or duplicate** this repository to your own GitHub account.
+2. **Install dependencies** with `pnpm install` and run `pnpm dev` locally to explore the default experience.
+3. **Update branding assets**: replace images in `public/images/`, tune fonts in `src/assets/fonts`, and adjust theme tokens in `src/styles/globals.css`.
+4. **Customize content**: edit profile data under `src/features/profile/`, blog posts under `src/features/blog/`, and site metadata in `src/config/site.ts`.
+5. **Set up deployment**: configure environment variables (see above), then deploy to Vercel or your preferred host using `pnpm build`.
 
 ## Blog System
 
