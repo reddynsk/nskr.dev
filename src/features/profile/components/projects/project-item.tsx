@@ -16,6 +16,7 @@ import { Tag } from "@/components/ui/tag";
 import { SimpleTooltip } from "@/components/ui/tooltip";
 import { Prose } from "@/components/ui/typography";
 import { UTM_PARAMS } from "@/config/site";
+import { cn } from "@/lib/utils";
 import { addQueryParams } from "@/utils/url";
 
 import { TECH_STACK } from "../../data/tech-stack";
@@ -24,17 +25,25 @@ import type { Project } from "../../types/projects";
 export function ProjectItem({
   className,
   project,
+  defaultOpen,
 }: {
   className?: string;
   project: Project;
+  defaultOpen?: boolean;
 }) {
   const { start, end } = project.period;
   const isOngoing = !end;
 
   return (
-    <CollapsibleWithContext defaultOpen={project.isExpanded} asChild>
+    <CollapsibleWithContext
+      defaultOpen={defaultOpen ?? project.isExpanded}
+      asChild
+    >
       <article
-        className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-border hover:bg-card hover:shadow-lg ${className}`}
+        className={cn(
+          "group relative flex h-full flex-col overflow-hidden rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-border hover:bg-card hover:shadow-lg",
+          className
+        )}
       >
         <CollapsibleTrigger className="block w-full text-left transition-colors select-none">
           <div className="flex flex-col gap-4 p-4">
@@ -46,8 +55,8 @@ export function ProjectItem({
                 <Icons.project className="size-6" />
               </div>
 
-              <div className="flex-1 min-w-0">
-                <h3 className="mb-2 leading-tight font-semibold text-balance line-clamp-2">
+              <div className="min-w-0 flex-1">
+                <h3 className="mb-2 line-clamp-2 leading-tight font-semibold text-balance">
                   {project.title}
                 </h3>
 

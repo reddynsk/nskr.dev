@@ -18,13 +18,19 @@ import { addQueryParams } from "@/utils/url";
 import { TECH_STACK } from "../../data/tech-stack";
 import type { Project } from "../../types/projects";
 
-export function ProjectListItem({ project }: { project: Project }) {
+export function ProjectListItem({
+  project,
+  defaultOpen = false,
+}: {
+  project: Project;
+  defaultOpen?: boolean;
+}) {
   const { start, end } = project.period;
   const isOngoing = !end;
   const displaySkills = project.skills.slice(0, 5);
 
   return (
-    <CollapsibleWithContext defaultOpen={false} asChild>
+    <CollapsibleWithContext defaultOpen={defaultOpen} asChild>
       <div className="group relative overflow-hidden rounded-lg border border-border/50 bg-card/30 transition-all hover:border-border hover:bg-card/50 hover:shadow-md">
         <CollapsibleTrigger className="block w-full text-left transition-colors select-none">
           <div className="flex items-center gap-4 p-4">
@@ -35,8 +41,8 @@ export function ProjectListItem({ project }: { project: Project }) {
               <Icons.project className="size-5" />
             </div>
 
-            <div className="flex-1 min-w-0">
-              <h3 className="mb-1 leading-tight font-medium text-balance line-clamp-1">
+            <div className="min-w-0 flex-1">
+              <h3 className="mb-1 line-clamp-1 leading-tight font-medium text-balance">
                 {project.title}
               </h3>
 
@@ -102,7 +108,7 @@ export function ProjectListItem({ project }: { project: Project }) {
         <CollapsibleContent className="overflow-hidden duration-300 data-[state=closed]:animate-collapsible-fade-up data-[state=open]:animate-collapsible-fade-down">
           <div className="space-y-3 border-t border-border/50 bg-muted/20 p-4">
             {project.description && (
-              <p className="text-sm text-muted-foreground line-clamp-3">
+              <p className="line-clamp-3 text-sm text-muted-foreground">
                 {project.description.split("\n")[0]}
               </p>
             )}

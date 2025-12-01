@@ -27,23 +27,23 @@ export function Projects() {
             <h3 className="mb-4 text-sm font-medium text-muted-foreground">
               Featured Projects
             </h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="space-y-3">
               {featuredProjects.map((project) => (
-                <ProjectItem key={project.id} project={project} />
+                <ProjectItem
+                  key={project.id}
+                  project={project}
+                  defaultOpen
+                  className="border-primary/30"
+                />
               ))}
             </div>
           </div>
 
           {moreProjects.length > 0 && (
-            <div>
-              <h3 className="mb-4 text-sm font-medium text-muted-foreground">
-                More Projects
-              </h3>
-              <div className="space-y-2">
-                {moreProjects.map((project) => (
-                  <ProjectListItem key={project.id} project={project} />
-                ))}
-              </div>
+            <div className="space-y-2">
+              {moreProjects.map((project) => (
+                <ProjectListItem key={project.id} project={project} />
+              ))}
             </div>
           )}
 

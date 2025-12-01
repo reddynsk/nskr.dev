@@ -1,7 +1,38 @@
 import type { Project } from "../types/projects";
 
 export const PROJECTS: Project[] = [
-  // Featured Project 1: Dance Move Insight
+  // Featured Project 1: LLM Council
+  {
+    id: "llm-council",
+    title: "LLM Council",
+    period: {
+      start: "12.2025",
+    },
+    link: "https://github.com/nskrdev/llm-council",
+    skills: [
+      "AI Orchestration",
+      "GitHub Copilot",
+      "FastAPI",
+      "React",
+      "Vite",
+      "OAuth",
+      "Multi-provider LLM Integration",
+      "Anonymous Voting System",
+      "AI Democracy",
+      "Python",
+    ],
+    description: `A deliberative democracy for AI models, orchestrating a 3-stage process where multiple LLMs (GPT-5, Claude, Gemini, Grok) debate, vote, and synthesize collective wisdom. Uses GitHub Copilot's free-tier models for cost-free access.
+
+**Key highlights:**
+- Anonymous peer review to prevent brand bias
+- Beautiful UI with color-coded models, voting matrix, and podium rankings
+- Transparent, locally saved conversation history
+- Supports both GitHub Copilot and OpenRouter providers
+- Designed for students and developers seeking free, high-quality AI collaboration`,
+    isExpanded: true,
+  },
+
+  // Featured Project 2: Dance Move Insight
   {
     id: "dance-move-insight",
     title: "Dance Move Insight - Real-time Pose Analysis API",
@@ -34,11 +65,11 @@ export const PROJECTS: Project[] = [
 - Geometric angle calculations for move classification
 - Health monitoring and JSON response formatting
 - Production-grade deployment on cloud infrastructure`,
-    
     isExpanded: true,
   },
 
   // Featured Project 2: ARISE
+
   {
     id: "arise-resume-intelligence",
     title: "ARISE - AI-based Resume Intelligence and Scoring Engine",
@@ -71,7 +102,7 @@ export const PROJECTS: Project[] = [
 - NLP-powered semantic matching algorithms
 - Grammar checking and readability scoring
 - Flask-based REST API for easy integration`,
-    
+
     isExpanded: true,
   },
 
@@ -106,7 +137,7 @@ export const PROJECTS: Project[] = [
 - Contrastive loss optimization for embedding spaces
 - Euclidean distance-based similarity computation
 - Precision-recall metrics for robust evaluation`,
-    isExpanded: true,
+    isExpanded: false,
   },
 
   // Hackathon Project: Disaster Response Agent
@@ -189,7 +220,7 @@ export const PROJECTS: Project[] = [
 - Mobile-first responsive design for all devices
 - Performance optimized with <3 second load times
 - SEO optimized for search visibility`,
-    
+
     isExpanded: false,
   },
 

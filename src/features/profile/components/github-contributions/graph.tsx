@@ -27,6 +27,14 @@ export function GitHubContributionGraph({
 }) {
   const data = use(contributions);
 
+  if (data.length === 0) {
+    return (
+      <div className="flex h-[200px] w-full items-center justify-center text-sm text-muted-foreground">
+        Unable to load contributions right now.
+      </div>
+    );
+  }
+
   return (
     <ContributionGraph
       className="mx-auto w-full max-w-full"

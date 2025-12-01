@@ -17,6 +17,26 @@ const nextConfig: NextConfig = {
         port: "",
       },
     ],
+    localPatterns: [
+      {
+        pathname: "/og/simple",
+      },
+      {
+        pathname: "/images/**",
+      },
+      {
+        pathname: "/avatar.webp",
+      },
+      {
+        pathname: "/audio/**",
+      },
+      {
+        pathname: "/favicon.ico",
+      },
+      {
+        pathname: "/apple-touch-icon.png",
+      },
+    ],
     qualities: [75, 100],
   },
   async rewrites() {
