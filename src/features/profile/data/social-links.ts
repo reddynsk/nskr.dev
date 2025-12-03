@@ -1,4 +1,10 @@
-import { RiGithubLine, RiLinkedinBoxLine, RiMailLine, RiTwitterXLine, RiWhatsappLine } from "react-icons/ri";
+import {
+  RiGithubLine,
+  RiLinkedinBoxLine,
+  RiMailLine,
+  RiTwitterXLine,
+  RiWhatsappLine,
+} from "react-icons/ri";
 import { SiLeetcode } from "react-icons/si";
 
 import type { SocialLink } from "../types/social-links";
@@ -19,8 +25,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     icon: RiTwitterXLine,
     title: "X (Formerly Twitter)",
-    description: "@nskrdev",
-    href: "https://x.com/nskrdev",
+    description: "@nskrhq",
+    href: "https://x.com/nskrhq",
   },
   {
     icon: SiLeetcode,

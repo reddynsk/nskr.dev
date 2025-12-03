@@ -17,7 +17,7 @@ export function SiteFooter() {
           Built by{" "}
           <a
             className="link"
-            href="https://x.com/nskrdev"
+            href="https://x.com/nskrhq"
             target="_blank"
             rel="noopener"
           >
