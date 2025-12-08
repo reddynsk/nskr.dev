@@ -46,6 +46,7 @@ next-env.d.ts
 # local workspace metadata
 AGENTS.md
 **/AGENTS.md
+.vscode/
 .kiro/
 .idea/
 .fleet/
