@@ -8,5 +8,5 @@ import type { NavItem } from "@/types/nav";
 export function DesktopNav({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
 
-  return <Nav className="hidden sm:flex" items={items} activeId={pathname} />;
+  return <Nav className="hidden md:flex" items={items} activeId={pathname} />;
 }

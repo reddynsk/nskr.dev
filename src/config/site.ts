@@ -24,6 +24,29 @@ export const MAIN_NAV: NavItem[] = [
     href: "/blog",
   },
   {
+    title: "Skills",
+    href: "/tech-stack",
+  },
+  {
+    title: "Projects",
+    href: "/projects",
+  },
+  {
+    title: "Contact",
+    href: "/#overview",
+  },
+];
+
+export const COMPACT_NAV: NavItem[] = [
+  {
+    title: "About",
+    href: "/#about",
+  },
+  {
+    title: "Blog",
+    href: "/blog",
+  },
+  {
     title: "Contact",
     href: "/#overview",
   },

@@ -177,13 +177,6 @@ export function CommandMenu({ posts }: { posts: Post[] }) {
       setOpen(false);
       playClick();
       setTheme(theme);
-
-      // if (!document.startViewTransition) {
-      //   setTheme(theme);
-      //   return;
-      // }
-
-      // document.startViewTransition(() => setTheme(theme));
     },
     [playClick, setTheme]
   );

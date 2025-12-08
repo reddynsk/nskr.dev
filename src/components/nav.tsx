@@ -17,7 +17,7 @@ export function Nav({
     <nav
       data-active-id={activeId}
       className={cn(
-        "flex items-center gap-1 sm:gap-1.5 md:gap-2 lg:gap-3",
+        "flex flex-wrap items-center gap-0.5 sm:gap-1 md:gap-1.5 lg:gap-2",
         className
       )}
     >
@@ -47,8 +47,11 @@ export function NavItem({
   return (
     <Link
       className={cn(
-        "font-mono text-xs font-medium whitespace-nowrap text-muted-foreground transition-[color] duration-300 sm:text-sm",
-        active && "text-foreground"
+        "group relative px-2 py-2 font-mono text-xs font-medium whitespace-nowrap text-muted-foreground transition-colors duration-300 sm:px-2.5 sm:text-sm md:px-3",
+        "hover:text-foreground",
+        "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-foreground after:transition-all after:duration-300 after:ease-out",
+        "hover:after:w-full",
+        active && "text-foreground after:w-full"
       )}
       {...props}
     />

@@ -28,15 +28,7 @@ export function ToggleTheme() {
   }, [resolvedTheme, setTheme, setMetaColor, playClick]);
 
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      onClick={switchTheme}
-      // onClick={() => {
-      //   if (!document.startViewTransition) switchTheme();
-      //   document.startViewTransition(switchTheme);
-      // }}
-    >
+    <Button variant="outline" size="icon" onClick={switchTheme}>
       <MoonStarIcon className="hidden [html.dark_&]:block" />
       <SunIcon className="hidden [html.light_&]:block" />
       <span className="sr-only">Toggle Theme</span>
