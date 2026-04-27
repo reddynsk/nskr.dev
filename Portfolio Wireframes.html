@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AI Engineer Portfolio — Wireframes</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wf-paper: #f7f5f0;
+    --wf-paper-2: #ece8df;
+    --wf-ink: #1f1d1a;
+    --wf-ink-2: #5c574e;
+    --wf-ink-3: #b8b1a3;
+    --wf-line: rgba(0,0,0,.1);
+    --wf-accent: #c45a3a;
+  }
+  html.dark {
+    --wf-paper: #1a1816;
+    --wf-paper-2: #232019;
+    --wf-ink: #ece8df;
+    --wf-ink-2: #a39d90;
+    --wf-ink-3: #4d4840;
+    --wf-line: rgba(255,255,255,.1);
+    --wf-accent: #e87a56;
+  }
+  html, body { margin: 0; padding: 0; background: var(--wf-paper); }
+  body { font-family: 'Kalam', cursive; color: var(--wf-ink); }
+  #root { width: 100vw; height: 100vh; overflow: hidden; }
+
+  /* tweaks panel */
+  .tweaks {
+    position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+    background: var(--wf-paper); border: 1.5px solid var(--wf-ink);
+    box-shadow: 3px 3px 0 rgba(0,0,0,.12);
+    padding: 12px 14px; border-radius: 4px;
+    font-family: 'Kalam', cursive; font-size: 13px;
+    display: none; min-width: 200px;
+  }
+  .tweaks.show { display: block; }
+  .tweaks .t-title { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .2em; color: var(--wf-ink-2); margin-bottom: 8px; }
+  .tweaks .t-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 6px 0; }
+  .tweaks .t-toggle {
+    width: 36px; height: 20px; border: 1.5px solid var(--wf-ink); border-radius: 10px;
+    background: var(--wf-paper); position: relative; cursor: pointer; padding: 0;
+  }
+  .tweaks .t-toggle::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 13px; height: 13px; background: var(--wf-ink); border-radius: 50%;
+    transition: transform .18s;
+  }
+  .tweaks .t-toggle.on::after { transform: translateX(15px); background: var(--wf-accent); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<div class="tweaks" id="tweaks">
+  <div class="t-title">TWEAKS</div>
+  <div class="t-row">
+    <span>dark mode</span>
+    <button class="t-toggle" id="darkToggle" aria-label="toggle dark"></button>
+  </div>
+  <div class="t-row">
+    <span>annotations</span>
+    <button class="t-toggle on" id="annoToggle" aria-label="toggle annotations"></button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="wireframe-primitives.jsx"></script>
+<script type="text/babel" src="hero-variations.jsx"></script>
+<script type="text/babel" src="sections.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "dark": true,
+  "showAnnotations": true
+}/*EDITMODE-END*/;
+
+function applyTweaks(t) {
+  document.documentElement.classList.toggle('dark', !!t.dark);
+  // hide annotations globally by hiding .dc-card SAnno-like elements via CSS var
+  const style = document.getElementById('anno-style') || Object.assign(document.createElement('style'), { id: 'anno-style' });
+  style.textContent = t.showAnnotations ? '' : '[data-anno]{display:none!important}';
+  if (!style.parentNode) document.head.appendChild(style);
+}
+applyTweaks(TWEAKS);
+
+// Tweaks panel wiring
+let tweaksOn = false;
+const panel = document.getElementById('tweaks');
+const darkBtn = document.getElementById('darkToggle');
+const annoBtn = document.getElementById('annoToggle');
+if (TWEAKS.dark) darkBtn.classList.add('on');
+if (TWEAKS.showAnnotations) annoBtn.classList.add('on'); else annoBtn.classList.remove('on');
+
+function setTweak(k, v) {
+  TWEAKS[k] = v;
+  applyTweaks(TWEAKS);
+  try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*'); } catch(e) {}
+}
+
+darkBtn.addEventListener('click', () => {
+  const v = !darkBtn.classList.contains('on');
+  darkBtn.classList.toggle('on', v);
+  setTweak('dark', v);
+});
+annoBtn.addEventListener('click', () => {
+  const v = !annoBtn.classList.contains('on');
+  annoBtn.classList.toggle('on', v);
+  setTweak('showAnnotations', v);
+});
+
+window.addEventListener('message', (e) => {
+  if (!e.data || typeof e.data !== 'object') return;
+  if (e.data.type === '__activate_edit_mode') { tweaksOn = true; panel.classList.add('show'); }
+  if (e.data.type === '__deactivate_edit_mode') { tweaksOn = false; panel.classList.remove('show'); }
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+// Wrap SAnno so it can be hidden via CSS
+const OriginalSAnno = window.SAnno;
+window.SAnno = function(props) {
+  return <div data-anno {...props} style={props.style}>
+    <OriginalSAnno {...props} style={{}} />
+  </div>;
+};
+
+// Tag SNote too (not actually used in current screens but safe)
+const OriginalSNote = window.SNote;
+window.SNote = function(props) {
+  return <div data-anno style={props.style}><OriginalSNote {...props} /></div>;
+};
+
+// ─────────────────────────────────────────────────────────────
+// Main app — design canvas with sections: Hero Variations, Full Pages,
+// Sections library, Mobile
+// ─────────────────────────────────────────────────────────────
+function App() {
+  // Wrap each hero in a faux browser frame so they read as "pages"
+  const DesktopFrame = ({ children, label }) => (
+    <SFrame width={1200} height={760} label={label} scrollable={false}>{children}</SFrame>
+  );
+
+  return (
+    <DesignCanvas>
+      <DCSection id="heroes" title="Hero variations" subtitle="4 distinctly different treatments of the large video hero · desktop 1200×760">
+        <DCArtboard id="v1" label="V1 · Full-bleed cinematic" width={1200} height={760}>
+          <DesktopFrame label="ns.dev — V1 full-bleed"><HeroV1 /></DesktopFrame>
+        </DCArtboard>
+        <DCArtboard id="v2" label="V2 · Editorial split" width={1200} height={760}>
+          <DesktopFrame label="ns.dev — V2 editorial"><HeroV2 /></DesktopFrame>
+        </DCArtboard>
+        <DCArtboard id="v3" label="V3 · Terminal w/ ASCII reel" width={1200} height={760}>
+          <DesktopFrame label="ns.dev — V3 terminal"><HeroV3 /></DesktopFrame>
+        </DCArtboard>
+        <DCArtboard id="v4" label="V4 · Masked typography" width={1200} height={760}>
+          <DesktopFrame label="ns.dev — V4 masked"><HeroV4 /></DesktopFrame>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="flow" title="Full page flow" subtitle="V2 editorial hero + all sections, scrollable. Open focus view to scroll.">
+        <DCArtboard id="full-v2" label="V2 · Full scrollable page" width={1200} height={1100}>
+          <SFrame width={1200} height={1100} label="ns.dev — full page scroll" scrollable>
+            <FullPage hero={HeroV2} />
+          </SFrame>
+        </DCArtboard>
+        <DCArtboard id="full-v1" label="V1 · Full scrollable page" width={1200} height={1100}>
+          <SFrame width={1200} height={1100} label="ns.dev — full page scroll" scrollable>
+            <FullPage hero={HeroV1} />
+          </SFrame>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="sections" title="Section library" subtitle="Individual section wireframes · any hero can stitch to these">
+        <DCArtboard id="about" label="About" width={1200} height={540}>
+          <SFrame width={1200} height={540} label="§ about" scrollable={false}><SectionAbout /></SFrame>
+        </DCArtboard>
+        <DCArtboard id="featured" label="Featured" width={1200} height={620}>
+          <SFrame width={1200} height={620} label="§ featured" scrollable={false}><SectionFeatured /></SFrame>
+        </DCArtboard>
+        <DCArtboard id="grid" label="All work grid" width={1200} height={620}>
+          <SFrame width={1200} height={620} label="§ grid" scrollable={false}><SectionGrid /></SFrame>
+        </DCArtboard>
+        <DCArtboard id="timeline" label="Timeline" width={1200} height={620}>
+          <SFrame width={1200} height={620} label="§ timeline" scrollable={false}><SectionTimeline /></SFrame>
+        </DCArtboard>
+        <DCArtboard id="skills" label="Skills" width={1200} height={480}>
+          <SFrame width={1200} height={480} label="§ skills" scrollable={false}><SectionSkills /></SFrame>
+        </DCArtboard>
+        <DCArtboard id="contact" label="Contact" width={1200} height={560}>
+          <SFrame width={1200} height={560} label="§ contact" scrollable={false}><SectionContact /></SFrame>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="mobile" title="Mobile" subtitle="iPhone-scale hero + featured list · 390×760">
+        <DCArtboard id="mobile-hero" label="Mobile · hero + featured" width={390} height={760}>
+          <SFrame width={390} height={760} label="mobile" scrollable={false}><MobileHero /></SFrame>
+        </DCArtboard>
+      </DCSection>
+
+      <DCPostIt top={20} left={60} rotate={-3} width={220}>
+        Polished grayscale wireframes — each hero explores a different way to use the video. Click ↗ on any board to focus.
+      </DCPostIt>
+      <DCPostIt top={40} right={80} rotate={2} width={200}>
+        Toggle "Tweaks" in the toolbar for dark mode + annotation visibility.
+      </DCPostIt>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

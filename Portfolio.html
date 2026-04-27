@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NSKR — AI Automation Engineer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Narra Suryakoushik Reddy — AI Automation Engineer. I build agentic automations with n8n, LangChain, and Python.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:wght@400;500&family=Anton&family=Bebas+Neue&family=Archivo+Black&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div id="root"></div>
+
+<div class="tweaks" id="tweaks">
+  <div class="tweaks-title">TWEAKS</div>
+  <div class="t-row">
+    <span>dark mode</span>
+    <button class="t-toggle on" id="darkToggle" aria-label="toggle dark"></button>
+  </div>
+  <div class="t-row">
+    <span>hero style</span>
+    <div class="t-seg" id="heroSeg">
+      <button data-v="v5">type</button>
+      <button data-v="v6">studio</button>
+      <button data-v="v7" class="on">olivia</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="site-data.jsx"></script>
+<script type="text/babel" src="anim-utils.jsx"></script>
+<script type="text/babel" src="hero-canvas.jsx"></script>
+<script type="text/babel" src="ghibli-character.jsx"></script>
+<script type="text/babel" src="site-sections.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "dark": false,
+  "hero": "v7"
+}/*EDITMODE-END*/;
+
+function applyTweaks(t) {
+  document.documentElement.classList.toggle('dark', !!t.dark);
+  document.documentElement.classList.toggle('light', !t.dark);
+  document.documentElement.setAttribute('data-hero', t.hero || 'v5');
+}
+applyTweaks(TWEAKS);
+
+const panel = document.getElementById('tweaks');
+const darkBtn = document.getElementById('darkToggle');
+if (darkBtn) darkBtn.classList.toggle('on', !!TWEAKS.dark);
+
+function setTweak(k, v) {
+  TWEAKS[k] = v;
+  applyTweaks(TWEAKS);
+  window.dispatchEvent(new CustomEvent('tweaks-updated', { detail: TWEAKS }));
+  try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*'); } catch(e) {}
+}
+
+if (darkBtn) {
+  darkBtn.addEventListener('click', () => {
+    const v = !darkBtn.classList.contains('on');
+    darkBtn.classList.toggle('on', v);
+    setTweak('dark', v);
+  });
+}
+
+const heroSeg = document.getElementById('heroSeg');
+if (heroSeg) {
+  heroSeg.querySelectorAll('button').forEach(b => {
+    b.classList.toggle('on', b.dataset.v === TWEAKS.hero);
+    b.addEventListener('click', () => {
+      heroSeg.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+      setTweak('hero', b.dataset.v);
+    });
+  });
+}
+
+window.addEventListener('message', (e) => {
+  if (!e.data || typeof e.data !== 'object') return;
+  if (e.data.type === '__activate_edit_mode' && panel) panel.classList.add('show');
+  if (e.data.type === '__deactivate_edit_mode' && panel) panel.classList.remove('show');
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+function App() {
+  const [dark, setDark] = React.useState(TWEAKS.dark);
+  const [hero, setHero] = React.useState(TWEAKS.hero || 'v5');
+  React.useEffect(() => {
+    const on = (e) => { setDark(e.detail.dark); setHero(e.detail.hero || 'v5'); };
+    window.addEventListener('tweaks-updated', on);
+    return () => window.removeEventListener('tweaks-updated', on);
+  }, []);
+  const toggleDark = () => {
+    const v = !dark;
+    if (darkBtn) darkBtn.classList.toggle('on', v);
+    setTweak('dark', v);
+  };
+  return (
+    <>
+      <NavBar dark={dark} onToggleDark={toggleDark} />
+      {hero === 'v7' ? <HeroV7 /> : hero === 'v6' ? <HeroV6 /> : <Hero dark={dark} />}
+      <About />
+      <Featured />
+      <AllProjects />
+      <Experience />
+      <Skills />
+      <Writing />
+      <EduCerts />
+      <Contact />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>
