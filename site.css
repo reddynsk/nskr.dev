@@ -1546,7 +1546,7 @@ a { color: inherit; text-decoration: none; }
 
 /* slow shrink: starts more zoomed-in, eases very slowly to a small size that sits just below the headline */
 .hero-v7[data-stage="4"] .v7-watermark-word {
-  animation: v7-watermark-shrink 50s cubic-bezier(.22,.61,.36,1) 1.2s forwards;
+  animation: v7-watermark-shrink 80s steps(80, end) 1.2s forwards;
   will-change: transform;
 }
 @keyframes v7-watermark-shrink {
