@@ -628,28 +628,70 @@ function AllProjects() {
 }
 
 // ─────────────── EXPERIENCE ───────────────
+function CompanyLogo({ src, name }) {
+  const [ok, setOk] = React.useState(true);
+  const initials = name.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  if (!src || !ok) {
+    return <div className="exp-logo exp-logo-fallback" aria-label={name}>{initials}</div>;
+  }
+  return <img className="exp-logo" src={src} alt={`${name} logo`} onError={() => setOk(false)} />;
+}
+
 function Experience() {
   return (
     <section className="section exp" id="experience">
       <SectionHeader num="03" label="Experience" bleed="EXPERIENCE" bleedStyle="outline" />
       <div className="exp-list">
-        {S.experience.map((e, i) => (
-          <Reveal key={e.company} delay={i * 120} className="exp-item">
-            <div className="exp-period mono-sm">{e.period}</div>
-            <div className="exp-line" />
-            <div className="exp-body">
-              <div className="exp-type mono-sm">{e.type.toUpperCase()}</div>
-              <h3 className="exp-role">{e.role}</h3>
-              <div className="exp-co">@ {e.company}</div>
-              <ul className="exp-hl">
-                {e.highlights.slice(0, 5).map((h, j) => <li key={j}>{h}</li>)}
-              </ul>
-              <div className="exp-chips">
-                {e.tags.map(t => <span key={t} className="chip">{t}</span>)}
+        {S.experience.map((e, i) => {
+          const hasRoles = Array.isArray(e.roles) && e.roles.length > 0;
+          return (
+            <Reveal key={e.company + i} delay={i * 120} className="exp-item">
+              <div className="exp-period mono-sm">{e.period}</div>
+              <div className="exp-line" />
+              <div className="exp-body">
+                <div className="exp-head">
+                  <CompanyLogo src={e.logo} name={e.company} />
+                  <div className="exp-head-text">
+                    <h3 className="exp-co-name">{e.company}</h3>
+                    <div className="exp-meta mono-sm">
+                      {e.type}{e.location ? ` · ${e.location}` : ''}
+                    </div>
+                  </div>
+                </div>
+                {hasRoles ? (
+                  <ul className="exp-roles">
+                    {e.roles.map((r, j) => (
+                      <li key={j} className="exp-role-item">
+                        <span className="exp-role-dot" />
+                        <div className="exp-role-body">
+                          <h4 className="exp-role">{r.role}</h4>
+                          <div className="exp-role-period mono-sm">{r.period}</div>
+                          {r.highlights && r.highlights.length > 0 && (
+                            <ul className="exp-hl">
+                              {r.highlights.slice(0, 5).map((h, k) => <li key={k}>{h}</li>)}
+                            </ul>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <>
+                    <h4 className="exp-role">{e.role}</h4>
+                    <ul className="exp-hl">
+                      {(e.highlights || []).slice(0, 5).map((h, j) => <li key={j}>{h}</li>)}
+                    </ul>
+                  </>
+                )}
+                {e.tags && e.tags.length > 0 && (
+                  <div className="exp-chips">
+                    {e.tags.map(t => <span key={t} className="chip">{t}</span>)}
+                  </div>
+                )}
               </div>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

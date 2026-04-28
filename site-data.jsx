@@ -19,28 +19,32 @@ const SITE_DATA = {
   experience: [
     {
       company: "Valari Solutions",
-      role: "AI Automations Engineer",
-      period: "Feb 2026 — Present",
+      logo: "uploads/logos/valari.png",
+      period: "Dec 2025 — Present",
       type: "Full-time",
-      highlights: [
-        "Promoted from Junior AI Automations Engineer after 2 months",
-        "Designing and shipping production AI automation systems end-to-end",
-      ],
+      location: "Remote",
       tags: ["n8n", "Python", "TypeScript", "LangChain", "AI Agents"],
-    },
-    {
-      company: "Valari Solutions",
-      role: "Junior AI Automations Engineer",
-      period: "Dec 2025 — Feb 2026",
-      type: "Full-time",
-      highlights: [
-        "Built n8n workflow automations and AI agent integrations",
-        "Promoted to AI Automations Engineer in Feb 2026",
+      roles: [
+        {
+          role: "AI Automations Engineer",
+          period: "Feb 2026 — Present",
+          highlights: [
+            "Promoted from Junior AI Automations Engineer",
+            "Designing and shipping production AI automation systems end-to-end",
+          ],
+        },
+        {
+          role: "Junior AI Automations Engineer",
+          period: "Dec 2025 — Feb 2026",
+          highlights: [
+            "Built n8n workflow automations and AI agent integrations",
+          ],
+        },
       ],
-      tags: ["n8n", "Python", "Automation"],
     },
     {
       company: "Skin Seoul",
+      logo: "uploads/logos/skinseoul.png",
       role: "AI Agent Innovations Intern",
       period: "Jul 2025 — Sep 2025",
       type: "Internship",
@@ -56,6 +60,7 @@ const SITE_DATA = {
     },
     {
       company: "National Service Scheme — LPU",
+      logo: "uploads/logos/nss.png",
       role: "NSS Volunteer",
       period: "Aug 2024 — Present",
       type: "Volunteer",
