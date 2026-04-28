@@ -974,7 +974,7 @@ function HeroV7() {
           <a href="#about">ABOUT</a>
           <a href={S.resume} target="_blank" rel="noreferrer">RESUME</a>
         </nav>
-        <a href={`mailto:${S.email}`} className="v7-hire">
+        <a href="#contact" className="v7-hire">
           // HIRE ME <span className="v7-hire-circle">↗</span>
         </a>
       </div>

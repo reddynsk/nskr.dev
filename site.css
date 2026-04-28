@@ -1,4 +1,5 @@
 /* Portfolio — Narra Suryakoushik Reddy · premium, cinematic */
+html { scroll-behavior: smooth; }
 :root {
   --bg: #07070a;
   --bg-2: #0e0e13;
