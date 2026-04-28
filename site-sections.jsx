@@ -954,7 +954,7 @@ function HeroV7() {
       </div>
 
       <div className="v7-portrait">
-        <img className="v7-avatar" src="avatar.png?v=2" alt="Reddy" />
+        <img className="v7-avatar" src="avatar.png?v=2" alt="Reddy" loading="eager" decoding="async" fetchpriority="high" />
       </div>
 
       <h1 className="v7-headline" aria-label="AI Engineer">
