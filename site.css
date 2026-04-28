@@ -1665,13 +1665,17 @@ a { color: inherit; text-decoration: none; }
   padding: 22px 0 26px;
   border-top: 1px solid rgba(255,255,255,.25);
   background: linear-gradient(to bottom, rgba(255,106,26,0), rgba(255,106,26,.1));
+  transform: translateZ(0);
 }
 .hero-v7 .v7-marquee-track {
   display: flex; gap: 56px; white-space: nowrap;
   animation: v7-marquee 60s linear infinite;
   will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
 }
 .hero-v7 .v7-marquee.boost .v7-marquee-track { animation-duration: 30s; }
 @keyframes v7-marquee {
