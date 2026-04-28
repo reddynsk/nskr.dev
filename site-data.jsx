@@ -19,7 +19,7 @@ const SITE_DATA = {
   experience: [
     {
       company: "Valari Solutions",
-      logo: "uploads/logos/valari.png",
+      logo: "uploads/logos/valari.webp",
       period: "Dec 2025 — Present",
       type: "Full-time",
       location: "Remote",
@@ -44,7 +44,7 @@ const SITE_DATA = {
     },
     {
       company: "Skin Seoul",
-      logo: "uploads/logos/skinseoul.png",
+      logo: "uploads/logos/skinseoul.avif",
       role: "AI Agent Innovations Intern",
       period: "Jul 2025 — Sep 2025",
       type: "Internship",
