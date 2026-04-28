@@ -923,6 +923,12 @@ function HeroV7() {
 
   const [boost, setBoost] = React.useState(false);
   const [videoOk, setVideoOk] = React.useState(true);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  React.useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+  const closeMenu = () => setMenuOpen(false);
 
   // staged intro: 0=initial, 1=headline, 2=watermark, 3=portrait, 4=ambient (mono blocks)
   const [stage, setStage] = React.useState(0);
@@ -975,6 +981,24 @@ function HeroV7() {
           <a href={S.resume} target="_blank" rel="noreferrer">RESUME</a>
         </nav>
         <a href="#contact" className="v7-hire">
+          // HIRE ME <span className="v7-hire-circle">↗</span>
+        </a>
+        <button
+          className={`v7-burger ${menuOpen ? 'is-open' : ''}`}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(o => !o)}
+        >
+          <span /><span /><span />
+        </button>
+      </div>
+
+      <div className={`v7-mobile-menu ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
+        <a href="#work" onClick={closeMenu}>PROJECTS</a>
+        <a href="#writing" onClick={closeMenu}>BLOG</a>
+        <a href="#about" onClick={closeMenu}>ABOUT</a>
+        <a href={S.resume} target="_blank" rel="noreferrer" onClick={closeMenu}>RESUME ↗</a>
+        <a href="#contact" className="v7-mobile-hire" onClick={closeMenu}>
           // HIRE ME <span className="v7-hire-circle">↗</span>
         </a>
       </div>
