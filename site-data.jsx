@@ -19,7 +19,7 @@ const SITE_DATA = {
   experience: [
     {
       company: "Valari Solutions",
-      logo: "uploads/logos/valari.webp",
+      logo: "uploads/logos/valari.png",
       period: "Dec 2025 — Present",
       type: "Full-time",
       location: "Remote",
