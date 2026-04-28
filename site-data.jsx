@@ -18,6 +18,28 @@ const SITE_DATA = {
 
   experience: [
     {
+      company: "Valari Solutions",
+      role: "AI Automations Engineer",
+      period: "Feb 2026 — Present",
+      type: "Full-time",
+      highlights: [
+        "Promoted from Junior AI Automations Engineer after 2 months",
+        "Designing and shipping production AI automation systems end-to-end",
+      ],
+      tags: ["n8n", "Python", "TypeScript", "LangChain", "AI Agents"],
+    },
+    {
+      company: "Valari Solutions",
+      role: "Junior AI Automations Engineer",
+      period: "Dec 2025 — Feb 2026",
+      type: "Full-time",
+      highlights: [
+        "Built n8n workflow automations and AI agent integrations",
+        "Promoted to AI Automations Engineer in Feb 2026",
+      ],
+      tags: ["n8n", "Python", "Automation"],
+    },
+    {
       company: "Skin Seoul",
       role: "AI Agent Innovations Intern",
       period: "Jul 2025 — Sep 2025",

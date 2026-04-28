@@ -18,7 +18,7 @@ function NavBar({ dark, onToggleDark }) {
         <span className="logo-text">NSKR</span>
       </a>
       <div className="nav-links">
-        {['about', 'work', 'experience', 'skills', 'writing', 'contact'].map(l => (
+        {['about', 'skills', 'experience', 'work', 'writing', 'contact'].map(l => (
           <a key={l} href={`#${l}`}>{l}</a>
         ))}
       </div>
@@ -315,7 +315,7 @@ function Featured() {
   const p = S.featuredProjects;
   return (
     <section className="section featured" id="work">
-      <SectionHeader num="02" label="Featured Work" bleed="FEATURED · WORK" bleedStyle="outline" right={<a className="section-link" href="#grid">all projects →</a>} />
+      <SectionHeader num="04" label="Featured Work" bleed="FEATURED · WORK" bleedStyle="outline" right={<a className="section-link" href="#grid">all projects →</a>} />
       <div className="featured-list">
         {p.map((proj, i) => (
           <ProjectRow key={proj.id} p={proj} i={i} onHover={() => setActive(i)} active={active === i} />
@@ -603,7 +603,7 @@ function MoreProjectArt({ title, idx }) {
 function AllProjects() {
   return (
     <section className="section grid-sec" id="grid">
-      <SectionHeader num="03" label="More Projects" bleed="MORE · MORE · MORE" bleedStyle="solid" right={<span className="mono-sm muted">{S.otherProjects.length + S.featuredProjects.length} total</span>} />
+      <SectionHeader num="05" label="More Projects" bleed="MORE · MORE · MORE" bleedStyle="solid" right={<span className="mono-sm muted">{S.otherProjects.length + S.featuredProjects.length} total</span>} />
       <div className="proj-grid">
         {S.otherProjects.map((p, i) => (
           <Reveal key={p.title} delay={i * 60} className="proj-card-wrap">
@@ -631,7 +631,7 @@ function AllProjects() {
 function Experience() {
   return (
     <section className="section exp" id="experience">
-      <SectionHeader num="04" label="Experience" bleed="EXPERIENCE" bleedStyle="outline" />
+      <SectionHeader num="03" label="Experience" bleed="EXPERIENCE" bleedStyle="outline" />
       <div className="exp-list">
         {S.experience.map((e, i) => (
           <Reveal key={e.company} delay={i * 120} className="exp-item">
@@ -661,7 +661,7 @@ function Skills() {
   return (
     <section className="section skills" id="skills">
       <Stamp style={{ top: '160px', right: '5%', transform: 'rotate(7deg)' }}>// production-tested</Stamp>
-      <SectionHeader num="05" label="Stack" bleed="STACK · STACK" bleedStyle="solid" />
+      <SectionHeader num="02" label="Stack" bleed="STACK · STACK" bleedStyle="solid" />
       <div className="skills-grid">
         {groups.map(([group, items], i) => (
           <Reveal key={group} delay={i * 80} className="skill-group">
