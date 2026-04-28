@@ -1552,7 +1552,7 @@ a { color: inherit; text-decoration: none; }
   will-change: transform;
 }
 @keyframes v7-watermark-shrink {
-  from { transform: scale(1.18) scaleX(1.18) translateY(0); }
+  from { transform: scale(1) scaleX(1.18) translateY(0); }
   to   { transform: scale(.28) scaleX(1.18) translateY(-95%); }
 }
 
