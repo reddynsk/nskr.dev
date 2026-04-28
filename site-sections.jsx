@@ -934,6 +934,36 @@ function HeroV7() {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, []);
 
+  // JS-driven marquee — integer-pixel positions per frame = no subpixel shimmer
+  const trackRef = React.useRef(null);
+  const boostRef = React.useRef(false);
+  React.useEffect(() => { boostRef.current = boost; }, [boost]);
+  React.useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let raf = 0;
+    let pos = 0;       // current translateX in px (negative)
+    let halfWidth = 0; // width of one duplicated half
+    let lastT = performance.now();
+    const baseSpeed = 60;   // px/sec
+    const boostSpeed = 160; // px/sec
+    const measure = () => { halfWidth = track.scrollWidth / 2; };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(track);
+    const tick = (now) => {
+      const dt = Math.min(0.05, (now - lastT) / 1000);
+      lastT = now;
+      const speed = boostRef.current ? boostSpeed : baseSpeed;
+      pos -= speed * dt;
+      if (halfWidth > 0 && -pos >= halfWidth) pos += halfWidth;
+      track.style.transform = `translate3d(${Math.round(pos)}px, 0, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  }, []);
+
   return (
     <section className="hero-v7" id="top" data-stage={stage}>
       <div className="v7-topbar">
@@ -977,7 +1007,7 @@ function HeroV7() {
         onMouseEnter={() => setBoost(true)}
         onMouseLeave={() => setBoost(false)}
       >
-        <div className="v7-marquee-track">
+        <div className="v7-marquee-track" ref={trackRef}>
           {row.map((s, i) => (
             <span key={i} className="v7-marquee-item">{s}</span>
           ))}
